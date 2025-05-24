@@ -252,10 +252,20 @@
             justify-content: space-between;
             align-items: center;
         }
+        /* Estilos para el símbolo + / - en timeline-item */
         .timeline-item .arrow {
             font-size: 1.5em;
-            transition: transform 0.3s ease;
+            width: 1em; /* Ancho fijo para evitar cambios de diseño */
+            text-align: center;
+            transition: transform 0.3s ease, color 0.3s ease; /* Transición para suavizar el efecto */
+            color: var(--dark-blue); /* Color por defecto */
+            display: inline-block; /* Necesario para que transform funcione */
         }
+        .timeline-item h3:hover .arrow {
+            color: var(--main-blue); /* Color resaltado al pasar el ratón */
+            transform: scale(1.2); /* Agrandar al pasar el ratón */
+        }
+
         .timeline-item-content {
             padding: 0 0 20px 0;
             max-height: 0;
@@ -266,31 +276,39 @@
             max-height: 500px;
             padding: 0 0 20px 0;
         }
-        .timeline-item.open .arrow {
-            transform: rotate(90deg);
-        }
-        .timeline-item .date { font-style: italic; color: #555; margin-bottom: 5px; font-size: 0.9em; }
-        .timeline-item .institution, .timeline-item .company { font-weight: bold; color: var(--main-blue); margin-bottom: 10px; }
-        .timeline-item ul { list-style-type: disc; margin-left: 20px; padding-left: 0; }
-        .project-card {
-            background-color: var(--grey-background); margin-bottom: 20px;
-            border-radius: var(--border-radius); box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            overflow: hidden;
-        }
-        .project-header {
+        /* Estilos para el símbolo + / - en project-card */
+        .project-card .project-header {
             padding: 15px 20px; background-color: var(--dark-blue);
             color: var(--text-light); cursor: pointer; display: flex;
-            justify-content: space-between; align-items: center;
+            justify-content: space-between;
+            align-items: center;
         }
         .project-header h3 { margin: 0; font-size: 1.2em; }
-        .project-header .arrow { font-size: 1.5em; transition: transform 0.3s ease; }
+        .project-header .arrow {
+            font-size: 1.5em;
+            transition: transform 0.3s ease, color 0.3s ease; /* Transición para suavizar el efecto */
+            color: var(--text-light); /* Color por defecto */
+            display: inline-block; /* Necesario para que transform funcione */
+        }
+        .project-header:hover .arrow {
+            color: var(--main-blue); /* Color resaltado al pasar el ratón */
+            transform: scale(1.2); /* Agrandar al pasar el ratón */
+        }
+        .project-card.open .project-header .arrow {
+            /* No se aplica rotate(90deg) aquí porque el símbolo no es una flecha */
+            /* Si quieres un efecto diferente para el "-" en proyectos, se puede añadir */
+        }
+        .project-card.open .project-header:hover .arrow {
+            transform: scale(1.2); /* Solo agrandar, no rotar */
+        }
+
         .project-content {
-            padding: 0 20px; max-height: 0; overflow: hidden;
+            padding: 0 20px; max-height: 0;
+            overflow: hidden;
             transition: max-height 0.5s ease-out, padding 0.5s ease-out;
         }
         .project-content p, .project-content ul { margin-top: 15px; margin-bottom: 15px; }
         .project-card.open .project-content { padding: 15px 20px; max-height: 1000px; }
-        .project-card.open .arrow { transform: rotate(90deg); }
         footer {
             background-color: var(--dark-blue); color: var(--text-light);
             text-align: center; padding: 30px 20px;
@@ -300,12 +318,100 @@
         footer a:hover { text-decoration: underline; }
         footer .contact-info-item { margin-bottom: 10px; }
         
-        /* Ocultar botones de acción y menú abierto durante la impresión */
+        /* Estilos para el botón de documento */
+        .document-btn {
+            background-color: var(--main-blue);
+            color: var(--text-light);
+            border: none;
+            border-radius: 50%; /* Hacerlo redondo */
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--card-shadow);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 15px; /* Espacio desde la descripción */
+            margin-left: auto; /* Empujar a la derecha */
+            margin-right: 0;
+        }
+        .document-btn:hover {
+            background-color: var(--dark-blue);
+            transform: scale(1.1);
+        }
+        .document-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor; /* Usar el color del texto del botón para el icono */
+        }
+
+        /* Estilos para el modal de mensaje (ya no se usa para PDFs, pero se mantiene por si acaso) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: var(--text-light);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
+        }
+        .modal-content h4 {
+            color: var(--dark-blue);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        .modal-content p {
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+        .modal-close-btn {
+            background-color: var(--main-blue);
+            color: var(--text-light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .modal-close-btn:hover {
+            background-color: var(--dark-blue);
+        }
+        
+        /* Ocultar elementos en la impresión */
         @media print {
             .fixed-action-buttons,
             .sticky-nav,
             button.hexagon-btn,
-            #back-to-top-btn {
+            #back-to-top-btn,
+            .document-btn, /* Ocultar el botón de documento en la impresión */
+            .modal-overlay /* Ocultar el modal en la impresión */
+            {
                 display: none !important;
             }
             html, body {
@@ -509,49 +615,67 @@
             <section id="experience"> <h2>Experiencia Laboral</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-                        <h3>EMSR-Techniker <span class="arrow">&gt;</span></h3>
+                        <h3>EMSR-Techniker <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">VOGELBUSCH Biocommodities GmbH, (Vollzeit), Viena, Austria</p>
                             <p class="date">05.2024 - 11.2024</p>
+                            <p>Creación de documentación estándar para sistemas eléctricos e instrumentación (listas de medición, I/O, motores, consumidores) y revisión de diagramas P&I, asegurando la conformidad con los requisitos de automatización. Demostró alta proactividad y completó las tareas con plena satisfacción.</p>
+                            <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Vogelbusch.pdf" aria-label="Ver carta de recomendación">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Projektmanagement in Automatisierung und Softwareentwicklung <span class="arrow">&gt;</span></h3>
+                        <h3>Projektmanagement in Automatisierung y Softwareentwicklung <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">PRIMETALS TECHNOLOGIES AUSTRIA GmbH, (Vollzeit), Linz, Austria</p>
                             <p class="date">08.2021 - 03.2024</p>
+                            <p>Rol clave en la arquitectura y desarrollo de software para proyectos de automatización y electrotecnia. Gestionó proyectos técnicos internacionales, incluyendo comunicación con clientes, negociación con proveedores, planificación de equipos eléctricos (MCC, PLCs, transformadores, motores, sensores, convertidores) y creación de documentación técnica detallada (especificaciones, estándares, layouts, listas de equipos y descripciones funcionales). Realizó inspecciones y aceptaciones en fábricas. Destacó por su precisión, fiabilidad, compromiso y profundo conocimiento técnico, siempre encontrando soluciones óptimas y contribuyendo significativamente al éxito de los proyectos.</p>
+                            <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Primetals.pdf" aria-label="Ver carta de recomendación">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Automatisierungstechniken y Projektleiter <span class="arrow">&gt;</span></h3>
+                        <h3>Automatisierungstechniken y Projektleiter <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">SPRINGER MASCHINENFABRIK GmbH, (Vollzeit), Linz, Austria</p>
                             <p class="date">06.2019 - 07.2021</p>
+                            <p>Programador de software PLC en automatización de aserraderos. Responsable de la creación de programas en equipo, la puesta en marcha en las instalaciones del cliente final y el cierre adecuado de los proyectos. Demostró ser una persona concienzuda, leal y versátil en sus funciones.</p>
+                            <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Springer.pdf" aria-label="Ver carta de recomendación">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Promotionstätigkeiten <span class="arrow">&gt;</span></h3>
+                        <h3>Promotionstätigkeiten <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">PLASMAPUNKT DONAUZENTRUM, (Freier Dienstvertrag), Viena, Austria</p>
                             <p class="date">01.2015 - 05.2019</p>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Kälteanlagentechniker (Prácticas) <span class="arrow">&gt;</span></h3>
+                        <h3>Kälteanlagentechniker (Prácticas) <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">Johnson Controls, (Praktikum), Viena, Austria</p>
                             <p class="date">02.2019 - 02.2019</p>
                         </div>
                     </div>
                        <div class="timeline-item">
-                        <h3>Hilfsmitarbeiter con Logistik-Tätigkeiten <span class="arrow">&gt;</span></h3>
+                        <h3>Hilfsmitarbeiter con Logistik-Tätigkeiten <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">WIENER GEWÄSSER (MA 45), (Vollzeit), Viena, Austria</p>
                             <p class="date">04.2016 - 01.2017</p>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Sales Assistent-Manager <span class="arrow">&gt;</span></h3>
+                        <h3>Sales Assistent-Manager <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">SUBWAY (DON sub GmbH), (Saisonarbeit), Viena, Austria</p>
                             <p class="date">04.2015 - 11.2015</p>
@@ -561,7 +685,7 @@
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Logistikberater und IT <span class="arrow">&gt;</span></h3>
+                        <h3>Logistikberater y IT <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">SERVICIO GEOLOGICO COLOMBIANO, (Saison-Vertrag), Bogotá, Colombia</p>
                             <p class="date">2012 - 2013</p>
@@ -572,7 +696,7 @@
                         </div>
                     </div>
                        <div class="timeline-item">
-                        <h3>IT-Projektleiter und Verkäufer <span class="arrow">&gt;</span></h3>
+                        <h3>IT-Projektleiter y Verkäufer <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">QP Consultores, Bogotá, Colombia</p>
                             <p class="date">2010 - 2012</p>
@@ -583,7 +707,7 @@
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>IT & Logistik Manager <span class="arrow">&gt;</span></h3>
+                        <h3>IT & Logistik Manager <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="company">BRITISH AMERICAN TOBACCO (BAT), Bogotá, Colombia</p>
                             <p class="date">2008 - 2010</p>
@@ -597,28 +721,28 @@
             <section id="education"> <h2>Formación Académica</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-                        <h3>Produktions- und Technologiemanagement MSc <span class="arrow">&gt;</span></h3>
+                        <h3>Produktions- y Technologiemanagement MSc <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
-                            <p class="institution">Zukunftsakademie Mostviertel und FH St. Pölten, Austria</p>
+                            <p class="institution">Zukunftsakademie Mostviertel y FH St. Pölten, Austria</p>
                             <p class="date">09.2020 - 11.2023</p>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Kälteanlagentechniker - Berufsausbildung <span class="arrow">&gt;</span></h3>
+                        <h3>Kälteanlagentechniker - Berufsausbildung <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
                             <p class="date">11.2017 - 04.2019</p>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Elektrotechniker Berufsausbildung (Anlagen- und Betriebstechnik) <span class="arrow">&gt;</span></h3>
+                        <h3>Elektrotechniker Berufsausbildung (Anlagen- y Betriebstechnik) <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
                             <p class="date">11.2017 - 04.2019</p>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Masterstudium Maschinenbau <span class="arrow">&gt;</span></h3>
+                        <h3>Masterstudium Maschinenbau <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="institution">Universidad de los Andes, Bogotá, Colombia</p>
                             <p class="date">2003 - 2012</p>
@@ -626,14 +750,14 @@
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Matura (Bachillerato) <span class="arrow">&gt;</span></h3>
+                        <h3>Matura (Bachillerato) <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="institution">Liceo Los Alpes, Cali, Colombia</p>
                             <p class="date">2003</p>
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <h3>Weiterbildung (Formación Continua) <span class="arrow">&gt;</span></h3>
+                        <h3>Weiterbildung (Formación Continua) <span class="arrow"></span></h3>
                         <div class="timeline-item-content">
                             <p class="institution">Varios cursos y certificaciones:</p>
                             <ul>
@@ -650,7 +774,7 @@
                 <div class="project-card">
                     <div class="project-header">
                         <h3>Sistema de Riego Automatizado</h3>
-                        <span class="arrow">&gt;</span>
+                        <span class="arrow"></span>
                     </div>
                     <div class="project-content">
                         <p><strong>Empresa:</strong> Springer Maschinenfabrik GmbH</p>
@@ -670,7 +794,7 @@
                 <div class="project-card">
                     <div class="project-header">
                         <h3>Optimización de Procesos de Solidificación</h3>
-                        <span class="arrow">&gt;</span>
+                        <span class="arrow"></span>
                     </div>
                     <div class="project-content">
                         <p><strong>Empresa:</strong> PRIMETALS TECHNOLOGIES AUSTRIA GmbH</p>
@@ -682,7 +806,7 @@
                 <div class="project-card">
                     <div class="project-header">
                         <h3>Desarrollo de Plataformas BI</h3>
-                        <span class="arrow">&gt;</span>
+                        <span class="arrow"></span>
                     </div>
                     <div class="project-content">
                         <p><strong>Empresa:</strong> QP Consultores</p>
@@ -699,7 +823,7 @@
                 <div class="project-card">
                     <div class="project-header">
                         <h3>Líder de Proyectos TI y Ventas</h3>
-                        <span class="arrow">&gt;</span>
+                        <span class="arrow"></span>
                     </div>
                     <div class="project-content">
                         <p><strong>Empresa:</strong> QP Consultores, Bogotá, Colombia</p>
@@ -714,7 +838,7 @@
                 <div class="project-card">
                     <div class="project-header">
                         <h3>Consultor de Logística y TI</h3>
-                        <span class="arrow">&gt;</span>
+                        <span class="arrow"></span>
                     </div>
                     <div class="project-content">
                         <p><strong>Organización:</strong> SERVICIO GEOLÓGICO COLOMBIANO, Bogotá, Colombia</p>
@@ -729,7 +853,7 @@
                 <div class="project-card">
                     <div class="project-header">
                         <h3>Voluntariado Comprometido</h3>
-                        <span class="arrow">&gt;</span>
+                        <span class="arrow"></span>
                     </div>
                     <div class="project-content">
                         <p><strong>Organización:</strong> Tiergarten Schönbrunn, Viena, Austria</p>
@@ -764,6 +888,15 @@
             </div>
         </footer>
     </div>
+
+    <div id="messageModal" class="modal-overlay">
+        <div class="modal-content">
+            <h4>¡Atención!</h4>
+            <p id="modalMessage">Para ver el documento, el archivo PDF debe estar alojado en una ubicación web (por ejemplo, en un servidor o GitHub Pages) y no en una ruta local de tu computadora. Por favor, actualiza la ruta del PDF a una URL pública.</p>
+            <button class="modal-close-btn">Entendido</button>
+        </div>
+    </div>
+
     <script>
         // Hexagon animation
         const hexagonContainer = document.getElementById('hexagon-container');
@@ -781,33 +914,46 @@
             hexagon.style.backgroundColor = `rgba(0, 123, 255, ${Math.random() * 0.25 + 0.20})`;
             hexagonContainer.appendChild(hexagon);
         }
-        // Project card collapsible
+        // Project card collapsible (MODIFIED for + / - and hover effect)
         const projectHeaders = document.querySelectorAll('.project-header');
         projectHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const projectCard = header.parentElement;
-                const content = projectCard.querySelector('.project-content');
-                projectCard.classList.toggle('open');
-                if (projectCard.classList.contains('open')) {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                } else {
-                    content.style.maxHeight = '0';
-                }
-            });
+            const projectCard = header.parentElement;
+            const arrowSpan = header.querySelector('.arrow');
+            const content = projectCard.querySelector('.project-content');
+
+            if (content) {
+                arrowSpan.textContent = '+'; // Default to plus
+                header.addEventListener('click', () => {
+                    projectCard.classList.toggle('open');
+                    if (projectCard.classList.contains('open')) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        arrowSpan.textContent = '-'; // Change to minus when open
+                    } else {
+                        content.style.maxHeight = '0';
+                        arrowSpan.textContent = '+'; // Change back to plus when closed
+                    }
+                });
+            }
         });
-        // Timeline item collapsible
+
+        // Timeline item collapsible (MODIFIED for + / - and hover effect)
         const timelineItems = document.querySelectorAll('.timeline-item');
         timelineItems.forEach(item => {
             const h3 = item.querySelector('h3');
+            const arrowSpan = h3.querySelector('.arrow'); // Get the arrow span
             const content = item.querySelector('.timeline-item-content');
             
+            // Set initial state for the arrow
             if (content) {
+                arrowSpan.textContent = '+'; // Default to plus
                 h3.addEventListener('click', () => {
                     item.classList.toggle('open');
                     if (item.classList.contains('open')) {
                         content.style.maxHeight = content.scrollHeight + "px";
+                        arrowSpan.textContent = '-'; // Change to minus when open
                     } else {
                         content.style.maxHeight = '0';
+                        arrowSpan.textContent = '+'; // Change back to plus when closed
                     }
                 });
             }
@@ -893,20 +1039,31 @@
                 behavior: 'smooth'
             });
         });
-        // Print Button (MODIFIED)
+        // Print Button
         const printBtn = document.getElementById('print-btn');
         printBtn.addEventListener('click', () => {
-            // Oculta los botones de acción antes de imprimir
-            // La clase 'pdf-generating' se usa aquí para aplicar los estilos de @media print
             document.body.classList.add('pdf-generating'); 
-
-            window.print(); // Llama al diálogo de impresión nativo del navegador
-
-            // Restaura el estado original después de que el diálogo de impresión se cierra
-            // Un pequeño retraso para asegurar que el diálogo se haya abierto
+            window.print();
             setTimeout(() => {
                 document.body.classList.remove('pdf-generating');
             }, 500); 
+        });
+
+        // Modal Logic for PDF paths (now simplified as paths are assumed to be web accessible)
+        const messageModal = document.getElementById('messageModal');
+        const modalCloseBtn = messageModal.querySelector('.modal-close-btn');
+        const modalMessage = document.getElementById('modalMessage');
+
+        modalCloseBtn.addEventListener('click', () => {
+            messageModal.classList.remove('open');
+        });
+
+        document.querySelectorAll('.document-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const pdfPath = button.dataset.pdfPath;
+                // Open the PDF in a new tab
+                window.open(pdfPath, '_blank');
+            });
         });
     </script>
 </body>
