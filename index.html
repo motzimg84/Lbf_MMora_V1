@@ -1020,8 +1020,8 @@
         const navLinks = document.querySelectorAll('.sticky-nav .nav-link');
         const allNavigableSections = document.querySelectorAll('header[id], section[id], footer[id]');
         
-        // Mantener rootMargin para que el contenido se revele un poco antes
-        const revealOptions = { root: null, threshold: 0.15, rootMargin: "0px 0px 200px 0px" }; 
+        // MODIFICADO: Ajustar rootMargin para que el contenido se revele más tarde
+        const revealOptions = { root: null, threshold: 0.15, rootMargin: "0px 0px -100px 0px" }; 
         const activeLinkOptions = { root: null, threshold: 0.4, rootMargin: "-30% 0px -30% 0px" };
         
         const sectionObserver = new IntersectionObserver((entries) => {
