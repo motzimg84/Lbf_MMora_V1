@@ -25,11 +25,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--light-blue-bg);
+            background-color: var(--light-blue-bg); /* Fondo general del cuerpo */
             color: var(--text-dark);
             line-height: 1.6;
         }
-        /* Contenedor principal para el CV */
+        /* Contenedor principal para el CV, ahora solo para el contenido principal */
         #cv-container {
             width: 100%;
             max-width: 1200px;
@@ -140,12 +140,21 @@
         header {
             background-color: var(--header-bg);
             color: var(--text-light);
-            padding: 60px 20px;
+            padding: 60px 0; /* Solo padding vertical, el contenido interno maneja el horizontal */
             text-align: center;
             position: relative;
             overflow: hidden;
+            width: 100%; /* Asegura que el header ocupe todo el ancho */
         }
-        .header-content { position: relative; z-index: 2; }
+        /* Nuevo contenedor para centrar el contenido dentro del header de ancho completo */
+        .header-inner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px; /* Padding horizontal para el contenido */
+            position: relative;
+            z-index: 2;
+        }
+
         header img.profile-photo {
             width: 150px;
             height: 150px;
@@ -565,18 +574,20 @@
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
         </svg>
     </button>
+    
+    <header id="home">
+        <div class="hexagon-bg" id="hexagon-container"></div>
+        <div class="header-inner-content">
+            <img src="Img/Bild Mauricio Mora.jpg" alt="Foto de Perfil Mauricio Mora" class="profile-photo">
+            <h1>Ing. Mauricio Mora, MSc.</h1>
+            <p class="title">Especialista en Automatización y Gestión de Proyectos</p>
+            <p class="header-description">
+                En los nuevos desafíos veo oportunidades de desarrollo. Con atención, creatividad y acción rápida encuentro la manera de superarlos. Los desafíos no son obstáculos, sino oportunidades para crecer y desarrollar mi potencial.
+            </p>
+        </div>
+    </header>
+
     <div id="cv-container">
-        <header id="home">
-            <div class="hexagon-bg" id="hexagon-container"></div>
-            <div class="header-content">
-                <img src="Img/Bild Mauricio Mora.jpg" alt="Foto de Perfil Mauricio Mora" class="profile-photo">
-                <h1>Ing. Mauricio Mora, MSc.</h1>
-                <p class="title">Especialista en Automatización y Gestión de Proyectos</p>
-                <p class="header-description">
-                    En los nuevos desafíos veo oportunidades de desarrollo. Con atención, creatividad y acción rápida encuentro la manera de superarlos. Los desafíos no son obstáculos, sino oportunidades para crecer y desarrollar mi potencial.
-                </p>
-            </div>
-        </header>
         <main class="container">
             <section id="about" class="reveal-on-scroll">
                 <h2>Acerca de Mí</h2>
