@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Ing. Mauricio Mora, MSc.</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoVXM5RqaCRKWH3TIZxxPCskYRaHTCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        :root {
+            --main-blue: #007bff;
+            --dark-blue: #0056b3;
+            --light-blue-bg: #f0f8ff;
+            --header-bg: #0a2540;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --grey-background: #f8f9fa;
+            --light-grey-btn: #e0e0e0;
+            --icon-color-dark: var(--dark-blue);
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-blue-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .fixed-action-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .hexagon-btn {
+            width: 55px;
+            height: 63.5px;
+            background-color: var(--light-grey-btn);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .hexagon-btn:hover {
+            background-color: #cccccc;
+            transform: scale(1.05);
+        }
+        .hexagon-btn svg, .hexagon-btn .icon-hamburger { /* Cambio .icon-container a .icon-hamburger */
+            width: 28px;
+            height: 28px;
+            fill: var(--icon-color-dark);
+            color: var(--icon-color-dark);
+            display: flex; /* Para centrar spans de hamburguesa */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .icon-hamburger span {
+            display: block;
+            width: 22px;
+            height: 3px;
+            background-color: var(--icon-color-dark);
+            margin: 2px 0; /* Ajustado para mejor visualización */
+            transition: all 0.3s ease-in-out;
+        }
+        #menu-toggle-btn.open .icon-hamburger span:nth-child(1) {
+            transform: translateY(5px) rotate(45deg); /* Ajustado */
+        }
+        #menu-toggle-btn.open .icon-hamburger span:nth-child(2) {
+            opacity: 0;
+        }
+        #menu-toggle-btn.open .icon-hamburger span:nth-child(3) {
+            transform: translateY(-5px) rotate(-45deg); /* Ajustado */
+        }
+
+        /* Estilos para el botón de volver arriba */
+        #back-to-top-btn {
+            position: fixed; /* Ojo: se puede superponer con fixed-action-buttons si está muy arriba */
+            bottom: 20px; /* Ajusta esto si entra en conflicto con el pie de página o es muy bajo */
+            right: 20px;
+            z-index: 999; /* Menor que fixed-action-buttons, pero mayor que el contenido */
+            display: none; /* Oculto por defecto */
+        }
+        /* Icono para el botón de volver arriba */
+        #back-to-top-btn svg {
+            transform: rotate(-90deg); /* Flecha apuntando hacia arriba */
+        }
+
+        .sticky-nav {
+            background-color: rgba(10, 37, 64, 0.95);
+            backdrop-filter: blur(8px);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 15px;
+        }
+        .sticky-nav.open {
+            max-height: 500px;
+            padding: 15px;
+        }
+
+        .sticky-nav ul { list-style: none; margin: 0; padding: 0; }
+        .sticky-nav li { margin-bottom: 10px; }
+        .sticky-nav li:last-child { margin-bottom: 0; }
+        .sticky-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: block;
+            padding: 5px;
+        }
+        .sticky-nav a:hover { color: var(--main-blue); transform: translateX(3px); }
+        .sticky-nav a.active-link { color: var(--main-blue); font-weight: bold; }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--text-light);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden; /* Mantenemos hidden para el efecto visual, pero para PDF se considerará */
+        }
+        .header-content { position: relative; z-index: 2; }
+        header img.profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--main-blue);
+            margin-bottom: 20px;
+            background-color: var(--grey-background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--text-dark);
+            margin-left: auto;
+            margin-right: auto;
+            object-fit: cover;
+        }
+        header h1 { margin: 10px 0; font-size: 2.5em; color: var(--text-light); }
+        header .title { font-size: 1.5em; color: var(--main-blue); margin-bottom: 10px; }
+        header .header-description { font-size: 1.1em; max-width: 700px; margin: 0 auto; color: #e0e0e0; }
+
+        .hexagon-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .hexagon {
+            position: absolute;
+            width: 100px; 
+            height: 115.47px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: float 20s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
+            25% { opacity: 0.4; }
+            50% { transform: translateY(-100px) rotate(180deg); opacity: 0.25; }
+            75% { opacity: 0.4; }
+            100% { transform: translateY(0) rotate(360deg); opacity: 0.15; }
+        }
+
+        section {
+            padding: 40px 20px;
+            margin-bottom: 20px;
+            background-color: var(--text-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+        section h2 {
+            text-align: center;
+            color: var(--dark-blue);
+            margin-bottom: 30px;
+            font-size: 2em;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        section h2::after {
+            content: ''; width: 60px; height: 4px;
+            background-color: var(--main-blue);
+            position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); border-radius: 2px;
+        }
+
+        #about p { font-size: 1.1em; text-align: justify; max-width: 800px; margin: 0 auto; }
+        #skills .skills-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .skill-category {
+            background-color: var(--grey-background); padding: 20px;
+            border-radius: var(--border-radius); flex-basis: calc(50% - 40px); 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .skill-category h3 { color: var(--dark-blue); margin-top: 0; border-bottom: 2px solid var(--main-blue); padding-bottom: 5px; }
+        .skill-item {
+            margin-bottom: 15px; padding: 10px; background-color: #fff;
+            border-radius: 4px; transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border-left: 4px solid var(--main-blue);
+        }
+        .skill-item:hover { transform: translateY(-5px); box-shadow: var(--card-shadow); }
+        .skill-item .skill-name { font-weight: bold; display: block; margin-bottom: 5px; }
+        .skill-level-text { font-size: 0.9em; color: #555; }
+        .language-level { font-style: italic; color: var(--dark-blue); }
+
+        /* Estilos para el nuevo comportamiento de timeline-item */
+        .timeline-item {
+            padding: 0 40px 0 60px; /* Padding ajustado */
+            position: relative;
+            background-color: var(--grey-background);
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden; /* Para que max-height funcione */
+        }
+        .timeline-item::before { 
+            content: '📅'; position: absolute; left: 8px; top: 20px;
+            font-size: 1.5em; color: var(--dark-blue); background-color: var(--text-light);
+            border-radius: 50%; padding: 5px; width: 30px; height: 30px;
+            text-align: center; line-height: 30px; border: 2px solid var(--main-blue);
+        }
+        .timeline-item h3 { /* Título de la experiencia/educación */
+            margin-top: 0;
+            color: var(--dark-blue);
+            font-size: 1.3em;
+            padding: 20px 0; /* Padding para el título */
+            margin-bottom: 0; /* Eliminar margen inferior */
+            cursor: pointer; /* Indica que es clicable */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .timeline-item .arrow {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+        .timeline-item-content { /* Contenido que se va a desplegar */
+            padding: 0 0 20px 0; /* Padding inferior para el contenido */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+        .timeline-item.open .timeline-item-content {
+            max-height: 500px; /* Suficientemente grande para contener el contenido */
+            padding: 0 0 20px 0; /* Asegura el padding inferior cuando está abierto */
+        }
+        .timeline-item.open .arrow {
+            transform: rotate(90deg);
+        }
+
+        .timeline-item .date { font-style: italic; color: #555; margin-bottom: 5px; font-size: 0.9em; }
+        .timeline-item .institution, .timeline-item .company { font-weight: bold; color: var(--main-blue); margin-bottom: 10px; }
+        .timeline-item ul { list-style-type: disc; margin-left: 20px; padding-left: 0; }
+
+        .project-card {
+            background-color: var(--grey-background); margin-bottom: 20px;
+            border-radius: var(--border-radius); box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .project-header {
+            padding: 15px 20px; background-color: var(--dark-blue);
+            color: var(--text-light); cursor: pointer; display: flex;
+            justify-content: space-between; align-items: center;
+        }
+        .project-header h3 { margin: 0; font-size: 1.2em; }
+        .project-header .arrow { font-size: 1.5em; transition: transform 0.3s ease; }
+        .project-content {
+            padding: 0 20px; max-height: 0; overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+        .project-content p, .project-content ul { margin-top: 15px; margin-bottom: 15px; }
+        .project-card.open .project-content { padding: 15px 20px; max-height: 1000px; /* Suficientemente grande para contenido */ }
+        .project-card.open .arrow { transform: rotate(90deg); }
+
+        footer {
+            background-color: var(--dark-blue); color: var(--text-light);
+            text-align: center; padding: 30px 20px;
+        }
+        footer p { margin: 5px 0; }
+        footer a { color: var(--main-blue); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        footer .contact-info-item { margin-bottom: 10px; }
+
+        /* Ocultar botones de acción y menú abierto durante la captura de PDF */
+        body.pdf-generating .fixed-action-buttons,
+        body.pdf-generating #back-to-top-btn {
+            display: none !important;
+        }
+        /* Mensaje de carga para PDF */
+        .pdf-loading-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--dark-blue);
+            color: var(--text-light);
+            padding: 25px 30px;
+            border-radius: var(--border-radius);
+            z-index: 20000; /* Muy alto para estar encima de todo */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            font-size: 1.1em;
+        }
+
+
+        @media (max-width: 768px) {
+            .fixed-action-buttons {} /* No changes yet, consider UX */
+            header { padding: 40px 15px; }
+            header h1 { font-size: 2em; }
+            header .title { font-size: 1.2em; }
+            .skill-category { flex-basis: 100%; }
+            .timeline::before { left: 10px; }
+            .timeline-item { padding-left: 45px; }
+            .timeline-item h3 { padding: 15px 0;} /* Ajustar padding del título en móvil */
+            .timeline-item::before { left: 0; width: 25px; height: 25px; line-height: 25px; font-size: 1.2em; }
+            .timeline-item-content { padding: 0 0 15px 0;} /* Ajustar padding del contenido en móvil */
+            section { padding: 30px 15px; }
+            section h2 { font-size: 1.8em; }
+        }
+
+        @media (max-width: 480px) {
+            body { font-size: 15px; }
+            .fixed-action-buttons { top: 10px; right: 10px; gap: 8px; }
+            .hexagon-btn { width: 50px; height: 57.73px; }
+            .hexagon-btn svg, .hexagon-btn .icon-hamburger { width: 24px; height: 24px; }
+            .icon-hamburger span { width: 20px; height: 2.5px; margin: 1.5px 0; } /* Ajustado */
+            #menu-toggle-btn.open .icon-hamburger span:nth-child(1) { transform: translateY(4px) rotate(45deg); } /* Ajustado */
+            #menu-toggle-btn.open .icon-hamburger span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); } /* Ajustado */
+
+            header .profile-photo { width: 120px; height: 120px; }
+            header h1 { font-size: 1.8em; }
+            header .title { font-size: 1em; }
+            .container { width: 95%; }
+            section h2 { font-size: 1.6em; }
+            .timeline-item { padding-right: 10px; }
+        }
+        
+        /* Estilos para Impresión */
+        @media print {
+            html, body {
+                width: auto !important;
+                height: auto !important;
+                overflow: visible !important;
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color: #000000 !important; /* Texto base negro */
+            }
+
+            .fixed-action-buttons,
+            .sticky-nav, /* El menú de navegación no debe imprimirse */
+            button.hexagon-btn, /* Todos los botones hexagonales */
+            #back-to-top-btn /* Botón de volver arriba */ {
+                display: none !important;
+            }
+
+            header, section, footer, main.container {
+                box-shadow: none !important;
+                border: none !important;
+                margin-top: 0 !important;
+                margin-bottom: 12pt !important; /* Reducido para más contenido por página */
+                padding-top: 5pt !important;
+                padding-bottom: 5pt !important;
+            }
+            
+            header {
+                background-color: var(--header-bg) !important;
+                color: var(--text-light) !important;
+                padding: 20pt 15pt !important; /* Padding ajustado para impresión */
+            }
+            header .profile-photo {
+                border: 3px solid var(--main-blue) !important;
+                 max-width: 100px !important; /* Tamaño reducido para impresión */
+                 max-height: 100px !important;
+            }
+            header h1 { font-size: 18pt !important; color: var(--text-light) !important; }
+            header .title { font-size: 12pt !important; color: var(--main-blue) !important; }
+            header .header-description { font-size: 10pt !important; color: #f0f0f0 !important; } /* Aclarado para no gastar tinta */
+
+            .hexagon-bg { /* Hexágonos del header */
+                 display: block !important; /* Intentar mostrar */
+                 opacity: 0.08 !important; /* Muy sutiles para no gastar tinta y no tapar */
+                 z-index: -1 !important;
+            }
+            .hexagon { /* Hexágonos individuales */
+                background-color: rgba(0, 123, 255, 0.08) !important;
+                animation: none !important;
+                /* No se puede garantizar clip-path en todos los motores de impresión */
+            }
+
+            .reveal-on-scroll {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+            }
+
+            .project-card {
+                page-break-inside: avoid !important;
+                border: 1px solid #ccc !important; /* Borde sutil para separar */
+                margin-bottom: 10pt !important;
+            }
+            .project-card .project-header {
+                 background-color: #eaeaea !important; /* Fondo más claro para header de proyecto */
+                 color: #333333 !important;
+                 padding: 8pt 10pt !important;
+            }
+             .project-card .project-header h3 {
+                 font-size: 11pt !important;
+             }
+            .project-card .project-content {
+                max-height: none !important;
+                padding: 8pt 10pt !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                display: block !important;
+                background-color: #ffffff !important; /* Asegurar fondo blanco */
+            }
+            .project-card .arrow { display: none !important; }
+            
+            section h2 { font-size: 16pt !important; margin-bottom: 15pt !important; padding-bottom: 5pt !important;}
+            section h2::after { height: 2px !important; width: 50px !important;}
+
+            .skill-category { border: 1px solid #ddd !important; margin-bottom: 10pt !important; }
+            .skill-category h3 { font-size: 12pt !important; }
+            .skill-item { border-left: 3px solid var(--main-blue) !important; }
+            
+            /* Asegurar que el contenido del timeline-item se muestre */
+            .timeline-item { 
+                page-break-inside: avoid !important; 
+                border-bottom: 1px solid #eee !important; 
+                padding: 0 !important; /* Resetear padding del contenedor */
+                margin-bottom: 10pt !important;
+            }
+            .timeline-item h3 {
+                padding: 10pt 10pt 0 40pt !important; /* Padding para el título */
+                display: block !important; /* Para que el h3 no tome espacio de la flecha */
+            }
+            .timeline-item .timeline-item-content {
+                max-height: none !important;
+                padding: 0 10pt 10pt 40pt !important; /* Padding para el contenido */
+                opacity: 1 !important;
+                visibility: visible !important;
+                display: block !important;
+            }
+            .timeline-item .arrow { display: none !important; } /* Ocultar flecha */
+
+            .timeline-item::before { font-size: 1.2em !important; left: 5px !important; top: 10px !important; }
+            .timeline-item h3 { font-size: 11pt !important; }
+            .timeline-item .date { font-size: 9pt !important; }
+            
+            p, li, span {
+                font-size: 10pt !important; /* Tamaño de fuente base para impresión */
+                color: #000000 !important;
+            }
+            ul { padding-left: 20pt !important; }
+            
+            a { text-decoration: none !important; color: var(--dark-blue) !important; }
+            /* Opcional: mostrar URLs completas para enlaces externos */
+            /* a[href^="http"]::after { content: " [" attr(href) "]"; font-size: 0.8em; color: #555555 !important; } */
+
+            img { max-width: 100% !important; page-break-inside: avoid !important; }
+            footer { padding: 15pt !important; }
+            footer h2 { font-size: 14pt !important; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="fixed-action-buttons">
+        <button id="menu-toggle-btn" class="hexagon-btn" aria-label="Alternar Menú" aria-expanded="false">
+            <div class="icon-hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <nav class="sticky-nav">
+            <ul>
+                <li><a href="#home" class="nav-link">Inicio</a></li>
+                <li><a href="#about" class="nav-link">Acerca de Mí</a></li>
+                <li><a href="#skills" class="nav-link">Conocimientos</a></li>
+                <li><a href="#experience" class="nav-link">Experiencia</a></li>
+                <li><a href="#education" class="nav-link">Formación</a></li>
+                <li><a href="#projects" class="nav-link">Proyectos</a></li>
+                <li><a href="#contact" class="nav-link">Contacto</a></li>
+            </ul>
+        </nav>
+        <button id="pdf-download-btn" class="hexagon-btn" aria-label="Descargar PDF">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px; height:28px;">
+                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13v4h-2v-4H9.5l2.5-2.5 2.5 2.5H17zm-5-2L7 15h3v4h4v-4h3l-5-5z" transform="translate(0,1)"/>
+            </svg>
+        </button>
+    </div>
+
+    <button id="back-to-top-btn" class="hexagon-btn" aria-label="Volver arriba">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px; height:28px;">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+    </button>
+
+    <header id="home">
+        <div class="hexagon-bg" id="hexagon-container"></div>
+        <div class="header-content">
+            <img src="Img/Bild Mauricio Mora.jpg" alt="Foto de Perfil Mauricio Mora" class="profile-photo">
+            <h1>Ing. Mauricio Mora, MSc.</h1>
+            <p class="title">Especialista en Automatización y Gestión de Proyectos</p>
+            <p class="header-description">
+                En los nuevos desafíos veo oportunidades de desarrollo. Con atención, creatividad y acción rápida encuentro la manera de superarlos. Los desafíos no son obstáculos, sino oportunidades para crecer y desarrollar mi potencial.
+            </p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about" class="reveal-on-scroll">
+            <h2>Acerca de Mí</h2>
+            <p>
+                Ingeniero Mauricio Mora, MSc., con una sólida trayectoria en la gestión de proyectos de automatización, desarrollo de software y técnicas EMSR. Mi enfoque se centra en la aplicación de la creatividad, una rápida capacidad de actuación y una atención meticulosa para superar desafíos, fomentar el crecimiento y desplegar mi máximo potencial. Busco activamente nuevas oportunidades que me permitan desarrollarme profesionalmente y aportar valor.
+            </p>
+        </section>
+
+        <section id="skills" class="reveal-on-scroll">
+            <h2>Conocimientos Técnicos</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Software y Tecnologías</h3>
+                    <div class="skill-item"><span class="skill-name">MS Office, Access y Project</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
+                    <div class="skill-item"><span class="skill-name">MS Visual Basic</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
+                    <div class="skill-item"><span class="skill-name">SPS - Tia Portal</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
+                    <div class="skill-item"><span class="skill-name">C, C++</span> <span class="skill-level-text">(Nivel: 4/5)</span></div>
+                    <div class="skill-item"><span class="skill-name">HTML, Java, PHP</span> <span class="skill-level-text">(Nivel: 4/5)</span></div>
+                    <div class="skill-item"><span class="skill-name">Oracle - MySQL</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
+                    <div class="skill-item"><span class="skill-name">SAP</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
+                    <div class="skill-item"><span class="skill-name">Solid Edge</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
+                </div>
+                <div class="skill-category">
+                    <h3>Idiomas</h3>
+                    <div class="skill-item"><span class="skill-name">Español</span> <span class="language-level">(Nativo - C2)</span></div>
+                    <div class="skill-item"><span class="skill-name">Alemán</span> <span class="language-level">(C1)</span></div>
+                    <div class="skill-item"><span class="skill-name">Inglés</span> <span class="language-level">(B2)</span></div>
+                    <div class="skill-item"><span class="skill-name">Francés</span> <span class="language-level">(A1)</span></div>
+                </div>
+                 <div class="skill-category">
+                    <h3>Certificados y Otros</h3>
+                     <div class="skill-item"><span class="skill-name">Permisos de Conducir: A y B</span></div>
+                     <div class="skill-item"><span class="skill-name">SCC Schulung (Safety Certificate for Contractors)</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="reveal-on-scroll">
+            <h2>Experiencia Laboral</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>EMSR-Techniker <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">VOGELBUSCH Biocommodities GmbH, (Vollzeit), Viena, Austria</p>
+                        <p class="date">05.2024 - 11.2024</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Projektmanagement in Automatisierung und Softwareentwicklung <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">PRIMETALS TECHNOLOGIES AUSTRIA GmbH, (Vollzeit), Linz, Austria</p>
+                        <p class="date">08.2021 - 03.2024</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Automatisierungstechniken y Projektleiter <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">SPRINGER MASCHINENFABRIK GmbH, (Vollzeit), Linz, Austria</p>
+                        <p class="date">06.2019 - 07.2021</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Promotionstätigkeiten <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">PLASMAPUNKT DONAUZENTRUM, (Freier Dienstvertrag), Viena, Austria</p>
+                        <p class="date">01.2015 - 05.2019</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Kälteanlagentechniker (Prácticas) <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">Johnson Controls, (Praktikum), Viena, Austria</p>
+                        <p class="date">02.2019 - 02.2019</p>
+                    </div>
+                </div>
+                 <div class="timeline-item">
+                    <h3>Hilfsmitarbeiter con Logistik-Tätigkeiten <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">WIENER GEWÄSSER (MA 45), (Vollzeit), Viena, Austria</p>
+                        <p class="date">04.2016 - 01.2017</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Sales Assistent-Manager <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">SUBWAY (DON sub GmbH), (Saisonarbeit), Viena, Austria</p>
+                        <p class="date">04.2015 - 11.2015</p>
+                        <ul>
+                            <li>Encargado de almacén, ventas y caja (mucho contacto con el cliente).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Logistikberater und IT <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">SERVICIO GEOLOGICO COLOMBIANO, (Saison-Vertrag), Bogotá, Colombia</p>
+                        <p class="date">2012 - 2013</p>
+                        <ul>
+                            <li>Control de rutas de conductores.</li>
+                            <li>Mantenimiento y presupuestación de 45 PKWs y Pickups.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="timeline-item">
+                    <h3>IT-Projektleiter und Verkäufer <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">QP Consultores, Bogotá, Colombia</p>
+                        <p class="date">2010 - 2012</p>
+                        <ul>
+                            <li>System-Projektmanager y Administrador de Base de Datos.</li>
+                            <li>Venta de sistemas y servicios TI.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>IT & Logistik Manager <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="company">BRITISH AMERICAN TOBACCO (BAT), Bogotá, Colombia</p>
+                        <p class="date">2008 - 2010</p>
+                        <ul>
+                            <li>Manager de la plataforma de reportes con aplicación SAP Business Intelligence y Xcelsius.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="reveal-on-scroll">
+            <h2>Formación Académica</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Produktions- und Technologiemanagement MSc <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="institution">Zukunftsakademie Mostviertel und FH St. Pölten, Austria</p>
+                        <p class="date">09.2020 - 11.2023</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Kälteanlagentechniker - Berufsausbildung <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
+                        <p class="date">11.2017 - 04.2019</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Elektrotechniker Berufsausbildung (Anlagen- und Betriebstechnik) <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
+                        <p class="date">11.2017 - 04.2019</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Masterstudium Maschinenbau <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="institution">Universidad de los Andes, Bogotá, Colombia</p>
+                        <p class="date">2003 - 2012</p>
+                        <p>Especialidad: Logística y Control de Producción.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Matura (Bachillerato) <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="institution">Liceo Los Alpes, Cali, Colombia</p>
+                        <p class="date">2003</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <h3>Weiterbildung (Formación Continua) <span class="arrow">&gt;</span></h3>
+                    <div class="timeline-item-content">
+                        <p class="institution">Varios cursos y certificaciones:</p>
+                         <ul>
+                            <li>SCC Schulung (Safety Certificate for Contractors) (16h), TU Wien Austria (2021).</li>
+                            <li>Universitätskurs Modern Management - Projektmanagement (192h), Universität Graz, Austria (2016).</li>
+                            <li>Lean-Manufacturing-Kurs (50h), Brinks de Colombia, Bogotá, Colombia (2013).</li>
+                            <li>Oracle Data Base Administrator Diplom (152h), Bogotá, Colombia (2010).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="reveal-on-scroll">
+            <h2>Proyectos Destacados</h2>
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Sistema de Riego Automatizado</h3>
+                    <span class="arrow">&gt;</span>
+                </div>
+                <div class="project-content">
+                    <p><strong>Empresa:</strong> Springer Maschinenfabrik GmbH</p>
+                    <p><strong>Descripción:</strong> Lideré el diseño e implementación de un sistema de riego innovador para mantener la humedad óptima de grandes volúmenes de troncos de madera.</p>
+                    <p><strong>Tecnologías Utilizadas:</strong> La automatización se logró con PLCs de Siemens, programados en TIA Portal. Desarrollé una interfaz de usuario avanzada con plataformas SCADA de Siemens, accesibles vía pantallas táctiles y computadores externos.</p>
+                    <p><strong>Funcionalidades Implementadas:</strong></p>
+                    <ul>
+                        <li>Selección y agrupación personalizada de aspersores.</li>
+                        <li>Ajuste preciso de los tiempos de funcionamiento del riego.</li>
+                        <li>Monitoreo en tiempo real del estado y capacidad de las bombas.</li>
+                        <li>Integración de datos ambientales (dirección del viento) para optimizar el riego.</li>
+                        <li>Registro de horas de funcionamiento para mantenimiento preventivo.</li>
+                    </ul>
+                    <p><strong>Desafío y Solución Clave:</strong> El principal desafío fue la capacidad limitada de las bombas, que impedía activar todos los aspersores simultáneamente. Diseñé y programé un sistema flexible que permitía al cliente seleccionar grupos de aspersores y crear programas de riego personalizados con diferentes salidas y tiempos de ejecución, optimizando el uso de recursos.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Optimización de Procesos de Solidificación</h3>
+                    <span class="arrow">&gt;</span>
+                </div>
+                <div class="project-content">
+                    <p><strong>Empresa:</strong> PRIMETALS TECHNOLOGIES AUSTRIA GmbH</p>
+                    <p><strong>Descripción:</strong> Me enfoqué en la mejora y optimización de los procesos de solidificación de metales, un componente crítico en la producción industrial.</p>
+                    <p><strong>Tecnologías Utilizadas:</strong> Este proyecto implicó la manipulación y mejora de sistemas de control existentes, predominantemente basados en sistemas Siemens y su entorno de programación TIA Portal.</p>
+                    <p><strong>Contribuciones y Logros:</strong> Mi trabajo se centró en el desarrollo de bloques de programación específicos. Estos bloques fueron diseñados para mejorar la eficiencia general y el control preciso de los procesos de producción, llevando a beneficios como la reducción de tiempos de ciclo y mejora de la calidad del producto final mediante un control más fino.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Desarrollo de Plataformas BI</h3>
+                    <span class="arrow">&gt;</span>
+                </div>
+                <div class="project-content">
+                    <p><strong>Empresa:</strong> QP Consultores</p>
+                    <p><strong>Descripción:</strong> Como líder de proyecto, dirigí y gestioné el desarrollo e implementación de diversas plataformas de Business Intelligence (BI) para una variedad de clientes.</p>
+                    <p><strong>Alcance y Colaboración:</strong> Este proyecto implicó la coordinación y colaboración estrecha con equipos de desarrolladores para asegurar que las soluciones de BI diseñadas no solo cumplieran con los requisitos técnicos, sino que también proporcionaran información valiosa y accionable para la toma de decisiones estratégicas de los clientes.</p>
+                    <p><strong>Gestión del Ciclo de Vida del Proyecto:</strong> Fui responsable de la gestión integral de estos proyectos, abarcando todas las fases del ciclo de vida:</p>
+                    <ul>
+                        <li>Planificación Inicial: Definición de objetivos, alcance y recursos.</li>
+                        <li>Comunicación: Mantenimiento de una comunicación fluida y efectiva con todos los stakeholders (clientes, equipos de desarrollo).</li>
+                        <li>Puesta en Marcha y Funcionamiento: Supervisión de la implementación y aseguramiento de la operatividad de las plataformas.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Líder de Proyectos TI y Ventas</h3>
+                    <span class="arrow">&gt;</span>
+                </div>
+                <div class="project-content">
+                    <p><strong>Empresa:</strong> QP Consultores, Bogotá, Colombia</p>
+                    <p><strong>Periodo:</strong> 2010 - 2012</p>
+                    <ul>
+                        <li>Responsable de la gestión de proyectos de sistemas informáticos.</li>
+                        <li>Administración de bases de datos para clientes.</li>
+                        <li>Participación activa en la venta de sistemas y servicios de TI, identificando necesidades de clientes y proponiendo soluciones.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Consultor de Logística y TI</h3>
+                    <span class="arrow">&gt;</span>
+                </div>
+                <div class="project-content">
+                    <p><strong>Organización:</strong> SERVICIO GEOLÓGICO COLOMBIANO, Bogotá, Colombia</p>
+                    <p><strong>Periodo:</strong> 2012 - 2013</p>
+                    <ul>
+                        <li>Desarrollo e implementación de sistemas de control de rutas para optimizar la eficiencia de los conductores.</li>
+                        <li>Gestión del mantenimiento preventivo y correctivo de una flota de 45 vehículos (PKWs y Pickups).</li>
+                        <li>Elaboración y control de presupuestos para el departamento de logística y transporte.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Voluntariado Comprometido</h3>
+                    <span class="arrow">&gt;</span>
+                </div>
+                <div class="project-content">
+                    <p><strong>Organización:</strong> Tiergarten Schönbrunn, Viena, Austria</p>
+                    <p><strong>Periodo:</strong> Desde 2016</p>
+                    <p>
+                        Colaborador voluntario de forma continua en el zoológico de Schönbrunn, demostrando un fuerte compromiso con el bienestar animal y la conservación. Esta actividad refleja dedicación, responsabilidad y pasión por la naturaleza.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="reveal-on-scroll">
+        <div class="container">
+            <h2>Contacto</h2>
+            <div class="contact-info-item">
+                <p>Ing. Mauricio Mora, MSc.</p>
+            </div>
+            <div class="contact-info-item">
+                <p><strong>Teléfono:</strong> <a href="tel:+436606032876">+43 660 603 28 76</a></p>
+            </div>
+            <div class="contact-info-item">
+                <p><strong>Email:</strong> <a href="mailto:mauricio.mora@gmx.at">mauricio.mora@gmx.at</a></p>
+            </div>
+            <div class="contact-info-item">
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/ing-mauricio-mora-msc" target="_blank">www.linkedin.com/in/ing-mauricio-mora-msc</a></p>
+            </div>
+            <div class="contact-info-item">
+                 <p><strong>Dirección:</strong> Maximilianstraße 74b/20, 3100 St. Pölten, Austria</p>
+            </div>
+            <p>&copy; <span id="currentYear"></span> Mauricio Mora. Todos los derechos reservados.</p>
+            <p>CV actualizado a Abril 2025.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hexagon animation
+        const hexagonContainer = document.getElementById('hexagon-container');
+        const numberOfHexagons = 20; 
+        for (let i = 0; i < numberOfHexagons; i++) {
+            const hexagon = document.createElement('div');
+            hexagon.classList.add('hexagon');
+            const size = Math.random() * 80 + 30;
+            hexagon.style.width = `${size}px`;
+            hexagon.style.height = `${size * 1.1547}px`;
+            hexagon.style.top = `${Math.random() * 100}%`;
+            hexagon.style.left = `${Math.random() * 100}%`;
+            hexagon.style.animationDelay = `${Math.random() * 10}s`;
+            hexagon.style.animationDuration = `${Math.random() * 10 + 15}s`;
+            hexagon.style.backgroundColor = `rgba(0, 123, 255, ${Math.random() * 0.25 + 0.20})`;
+            hexagonContainer.appendChild(hexagon);
+        }
+
+        // Project card collapsible (already implemented, no change here)
+        const projectHeaders = document.querySelectorAll('.project-header');
+        projectHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const projectCard = header.parentElement;
+                const content = projectCard.querySelector('.project-content');
+                // Toggle 'open' class on the card
+                projectCard.classList.toggle('open');
+                // Adjust max-height for smooth transition
+                if (projectCard.classList.contains('open')) {
+                    content.style.maxHeight = content.scrollHeight + "px"; // Expand
+                } else {
+                    content.style.maxHeight = '0'; // Collapse
+                }
+            });
+        });
+
+        // Timeline item collapsible (NEW / MODIFIED)
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach(item => {
+            const h3 = item.querySelector('h3'); // Get the h3 inside timeline-item
+            const content = item.querySelector('.timeline-item-content'); // Get the new content wrapper
+            
+            // Ensure content exists for items that should be collapsible
+            if (content) {
+                h3.addEventListener('click', () => {
+                    item.classList.toggle('open');
+                    if (item.classList.contains('open')) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } else {
+                        content.style.maxHeight = '0';
+                    }
+                });
+            }
+        });
+
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Profile photo error handling
+        const profilePhoto = document.querySelector('.profile-photo');
+        profilePhoto.onerror = function() {
+            profilePhoto.alt = "MM"; 
+            const initialsDiv = document.createElement('div');
+            initialsDiv.textContent = 'MM';
+            initialsDiv.style.width = profilePhoto.width + 'px'; // Usar dimensiones de la imagen original si es posible
+            initialsDiv.style.height = profilePhoto.height + 'px';
+            initialsDiv.style.borderRadius = '50%';
+            initialsDiv.style.border = '5px solid var(--main-blue)';
+            initialsDiv.style.display = 'flex';
+            initialsDiv.style.alignItems = 'center';
+            initialsDiv.style.justifyContent = 'center';
+            initialsDiv.style.backgroundColor = 'var(--grey-background)';
+            initialsDiv.style.color = 'var(--dark-blue)';
+            initialsDiv.style.fontSize = Math.min(profilePhoto.width, profilePhoto.height) / 3 + 'px'; // Ajustar tamaño de fuente
+            initialsDiv.style.margin = profilePhoto.style.margin; // Copiar márgenes
+            profilePhoto.parentNode.replaceChild(initialsDiv, profilePhoto);
+        };
+       
+        // Reveal on Scroll & Active Link
+        const sectionsToReveal = document.querySelectorAll('.reveal-on-scroll');
+        const navLinks = document.querySelectorAll('.sticky-nav .nav-link');
+        const allNavigableSections = document.querySelectorAll('header[id], section[id], footer[id]');
+        const revealOptions = { root: null, threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const activeLinkOptions = { root: null, threshold: 0.4, rootMargin: "-30% 0px -30% 0px" };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, revealOptions);
+        sectionsToReveal.forEach(section => sectionObserver.observe(section));
+        
+        const activeLinkObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const navLink = document.querySelector(`.sticky-nav a[href="#${id}"]`);
+                if (navLink) {
+                    if (entry.isIntersecting && entry.intersectionRatio >= activeLinkOptions.threshold) {
+                        navLinks.forEach(link => link.classList.remove('active-link'));
+                        navLink.classList.add('active-link');
+                    } else {
+                        // Solo remover si no es la sección actual y el umbral no se cumple
+                        // Esto ayuda a mantener el "active-link" en la última sección visible
+                        if (!entry.isIntersecting && navLink.classList.contains('active-link')) {
+                            navLink.classList.remove('active-link');
+                        }
+                    }
+                }
+            });
+        }, activeLinkOptions);
+        allNavigableSections.forEach(section => activeLinkObserver.observe(section));
+
+        // Menu Toggle
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const stickyNav = document.querySelector('.sticky-nav');
+        menuToggleBtn.addEventListener('click', () => {
+            menuToggleBtn.classList.toggle('open');
+            stickyNav.classList.toggle('open');
+            menuToggleBtn.setAttribute('aria-expanded', menuToggleBtn.classList.contains('open'));
+        });
+
+        // Back to Top Button (NEW)
+        const backToTopBtn = document.getElementById('back-to-top-btn');
+        const headerSection = document.getElementById('home'); // Get the header section
+
+        const headerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.target === headerSection) {
+                    if (entry.isIntersecting) {
+                        backToTopBtn.style.display = 'none'; // Hide when header is visible
+                    } else {
+                        backToTopBtn.style.display = 'flex'; // Show when header is out of view
+                    }
+                }
+            });
+        }, { threshold: 0 }); // Threshold 0 means it triggers as soon as any part of the header is visible/invisible
+
+        headerObserver.observe(headerSection); // Observe the header
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // PDF Download
+        const pdfDownloadBtn = document.getElementById('pdf-download-btn');
+        pdfDownloadBtn.addEventListener('click', () => {
+            const loadingMessage = document.createElement('div');
+            loadingMessage.className = 'pdf-loading-message'; // Clase para estilos
+            loadingMessage.textContent = 'Generando PDF, por favor espera...';
+            document.body.appendChild(loadingMessage);
+            document.body.classList.add('pdf-generating'); // Oculta botones de acción
+
+            // Pequeña demora para que el mensaje de carga se muestre y los estilos se apliquen
+            setTimeout(() => {
+                try {
+                    if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+                        throw new Error("Librerías PDF no cargadas.");
+                    }
+                    const { jsPDF } = window.jspdf;
+                    const mainContent = document.body;
+
+                    html2canvas(mainContent, {
+                        scale: 1.5, 
+                        useCORS: true,
+                        logging: false,
+                        scrollX: 0, 
+                        scrollY: 0,
+                        x:0, y:0,
+                        width: mainContent.scrollWidth,
+                        height: mainContent.scrollHeight,
+                        windowWidth: mainContent.scrollWidth,
+                        windowHeight: mainContent.scrollHeight,
+                        onclone: (documentClone) => {
+                            // Aplicar estilos para la captura en el clon del DOM
+                            Array.from(documentClone.querySelectorAll('.reveal-on-scroll')).forEach(section => {
+                                section.style.opacity = '1';
+                                section.style.transform = 'translateY(0)';
+                                section.style.visibility = 'visible';
+                            });
+                            // Asegurar que todos los contenidos colapsables estén abiertos para el PDF
+                            Array.from(documentClone.querySelectorAll('.project-card, .timeline-item')).forEach(item => {
+                                const content = item.querySelector('.project-content') || item.querySelector('.timeline-item-content');
+                                if (content) {
+                                   content.style.maxHeight = 'none'; // Mostrar todo
+                                   content.style.paddingTop = '15px'; // Restablecer padding si es necesario
+                                   content.style.paddingBottom = '15px';
+                                   content.style.opacity = '1';
+                                   content.style.visibility = 'visible';
+                                   content.style.display = 'block';
+                                }
+                            });
+                            const actionButtonsClone = documentClone.querySelector('.fixed-action-buttons');
+                            if (actionButtonsClone) actionButtonsClone.style.display = 'none';
+                            const backToTopBtnClone = documentClone.getElementById('back-to-top-btn');
+                            if (backToTopBtnClone) backToTopBtnClone.style.display = 'none';
+
+                            // Opcional: asegurar que los hexágonos del header-bg sean visibles para la captura
+                            const headerBgClone = documentClone.getElementById('hexagon-container');
+                            if(headerBgClone) {
+                                // Podrías intentar forzar opacidad aquí si fuera necesario,
+                                // pero usualmente html2canvas los captura como están
+                            }
+                        }
+                    }).then(canvas => {
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdf = new jsPDF('p', 'pt', 'a4');
+                        const pdfPageWidth = pdf.internal.pageSize.getWidth();
+                        const pdfPageHeight = pdf.internal.pageSize.getHeight();
+                        const canvasAspectRatio = canvas.width / canvas.height;
+                        
+                        let pdfImgHeight = pdfPageWidth / canvasAspectRatio;
+                        let totalPdfHeight = 0; // Para llevar la cuenta de la altura total en el PDF
+
+                        // Bucle para añadir páginas
+                        while(totalPdfHeight < pdfImgHeight) {
+                            if (totalPdfHeight > 0) { // Añadir nueva página excepto para la primera
+                                pdf.addPage();
+                            }
+                            pdf.addImage(imgData, 'PNG', 0, -totalPdfHeight, pdfPageWidth, pdfImgHeight);
+                            totalPdfHeight += pdfPageHeight;
+
+                            if(totalPdfHeight >= pdfImgHeight) break; // Salir si ya se cubrió toda la imagen
+                        }
+
+                        pdf.save('cv_mauricio_mora.pdf');
+
+                    }).catch(error => {
+                        console.error("Error al generar PDF con html2canvas:", error);
+                        alert("Hubo un error al generar el PDF. Revisa la consola.");
+                    }).finally(() => {
+                        document.body.classList.remove('pdf-generating');
+                        if (loadingMessage.parentNode) {
+                            loadingMessage.parentNode.removeChild(loadingMessage);
+                        }
+                    });
+                } catch (e) {
+                    console.error("Error general al preparar PDF:", e);
+                    alert("Ocurrió un error inesperado al preparar la generación del PDF.");
+                    document.body.classList.remove('pdf-generating');
+                    if (loadingMessage.parentNode) {
+                        loadingMessage.parentNode.removeChild(loadingMessage);
+                    }
+                }
+            }, 100); // Pequeña demora para mostrar mensaje de carga y aplicar clase.
+        });
+
+    </script>
+</body>
+</html>
