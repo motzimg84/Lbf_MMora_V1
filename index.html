@@ -196,13 +196,18 @@
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
         }
-        .reveal-on-scroll {
+        /* Estilos para el contenido que se va a revelar */
+        .section-content-reveal {
             opacity: 0;
             transform: translateY(40px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
             will-change: opacity, transform;
         }
-        .reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        .section-content-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         section h2 {
             text-align: center;
             color: var(--dark-blue);
@@ -564,13 +569,13 @@
             </ul>
         </nav>
         <button id="print-btn" class="hexagon-btn" aria-label="Imprimir CV">
-            <svg viewBox="0 0 576 512" fill="currentColor" style="width:28px; height:28px;">
-                <path d="M576 288c0-35.3-28.7-64-64-64h-96V64c0-35.3-28.7-64-64-64H192c-35.3 0-64 28.7-64 64v160H32c-35.3 0-64 28.7-64 64v112c0 44.2 35.8 80 80 80h416c44.2 0 80-35.8 80-80V288zM480 288a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM192 192v-64h192v64H192zm288 192a16 16 0 1 0 0-32 16 16 0 1 0 0 32z"/>
+            <svg viewBox="0 0 576 512" fill="currentColor">
+                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
             </svg>
         </button>
     </div>
     <button id="back-to-top-btn" class="hexagon-btn" aria-label="Volver arriba">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px; height:28px;">
+        <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
         </svg>
     </button>
@@ -589,313 +594,328 @@
 
     <div id="cv-container">
         <main class="container">
-            <section id="about" class="reveal-on-scroll">
+            <section id="about">
                 <h2>Acerca de Mí</h2>
-                <p>
-                    Ingeniero Mauricio Mora, MSc., con una sólida trayectoria en la gestión de proyectos de automatización, desarrollo de software y técnicas EMSR. Mi enfoque se centra en la aplicación de la creatividad, una rápida capacidad de actuación y una atención meticulosa para superar desafíos, fomentar el crecimiento y desplegar mi máximo potencial. Busco activamente nuevas oportunidades que me permitan desarrollarme profesionalmente y aportar valor.
-                </p>
+                <div class="section-content-reveal reveal-on-scroll">
+                    <p>
+                        Ingeniero Mauricio Mora, MSc., con una sólida trayectoria en la gestión de proyectos de automatización, desarrollo de software y técnicas EMSR. Mi enfoque se centra en la aplicación de la creatividad, una rápida capacidad de actuación y una atención meticulosa para superar desafíos, fomentar el crecimiento y desplegar mi máximo potencial. Busco activamente nuevas oportunidades que me permitan desarrollarme profesionalmente y aportar valor.
+                    </p>
+                </div>
             </section>
-            <section id="skills" class="reveal-on-scroll">
+            <section id="skills">
                 <h2>Conocimientos Técnicos</h2>
-                <div class="skills-container">
-                    <div class="skill-category">
-                        <h3>Software y Tecnologías</h3>
-                        <div class="skill-item"><span class="skill-name">MS Office, Access y Project</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
-                        <div class="skill-item"><span class="skill-name">MS Visual Basic</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
-                        <div class="skill-item"><span class="skill-name">SPS - Tia Portal</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
-                        <div class="skill-item"><span class="skill-name">C, C++</span> <span class="skill-level-text">(Nivel: 4/5)</span></div>
-                        <div class="skill-item"><span class="skill-name">HTML, Java, PHP</span> <span class="skill-level-text">(Nivel: 4/5)</span></div>
-                        <div class="skill-item"><span class="skill-name">Oracle - MySQL</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
-                        <div class="skill-item"><span class="skill-name">SAP</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
-                        <div class="skill-item"><span class="skill-name">Solid Edge</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Idiomas</h3>
-                        <div class="skill-item"><span class="skill-name">Español</span> <span class="language-level">(Nativo - C2)</span></div>
-                        <div class="skill-item"><span class="skill-name">Alemán</span> <span class="language-level">(C1)</span></div>
-                        <div class="skill-item"><span class="skill-name">Inglés</span> <span class="language-level">(B2)</span></div>
-                        <div class="skill-item"><span class="language-level">(A1)</span></div>
-                    </div>
-                       <div class="skill-category">
-                        <h3>Certificados y Otros</h3>
-                           <div class="skill-item"><span class="skill-name">Permisos de Conducir: A y B</span></div>
-                           <div class="skill-item"><span class="skill-name">SCC Schulung (Safety Certificate for Contractors)</span></div>
-                    </div>
-                </div>
-            </section>
-            <section id="experience"> <h2>Experiencia Laboral</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <h3>EMSR-Techniker <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">VOGELBUSCH Biocommodities GmbH, (Vollzeit), Viena, Austria</p>
-                            <p class="date">05.2024 - 11.2024</p>
-                            <p>Creación de documentación estándar para sistemas eléctricos e instrumentación (listas de medición, I/O, motores, consumidores) y revisión de diagramas P&I, asegurando la conformidad con los requisitos de automatización. Demostró alta proactividad y completó las tareas con plena satisfacción.</p>
-                            <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Vogelbusch.pdf" aria-label="Ver carta de recomendación">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
-                                </svg>
-                            </button>
+                <div class="section-content-reveal reveal-on-scroll">
+                    <div class="skills-container">
+                        <div class="skill-category">
+                            <h3>Software y Tecnologías</h3>
+                            <div class="skill-item"><span class="skill-name">MS Office, Access y Project</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
+                            <div class="skill-item"><span class="skill-name">MS Visual Basic</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
+                            <div class="skill-item"><span class="skill-name">SPS - Tia Portal</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
+                            <div class="skill-item"><span class="skill-name">C, C++</span> <span class="skill-level-text">(Nivel: 4/5)</span></div>
+                            <div class="skill-item"><span class="skill-name">HTML, Java, PHP</span> <span class="skill-level-text">(Nivel: 4/5)</span></div>
+                            <div class="skill-item"><span class="skill-name">Oracle - MySQL</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
+                            <div class="skill-item"><span class="skill-name">SAP</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
+                            <div class="skill-item"><span class="skill-name">Solid Edge</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Projektmanagement in Automatisierung y Softwareentwicklung <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">PRIMETALS TECHNOLOGIES AUSTRIA GmbH, (Vollzeit), Linz, Austria</p>
-                            <p class="date">08.2021 - 03.2024</p>
-                            <p>Rol clave en la arquitectura y desarrollo de software para proyectos de automatización y electrotecnia. Gestionó proyectos técnicos internacionales, incluyendo comunicación con clientes, negociación con proveedores, planificación de equipos eléctricos (MCC, PLCs, transformadores, motores, sensores, convertidores) y creación de documentación técnica detallada (especificaciones, estándares, layouts, listas de equipos y descripciones funcionales). Realizó inspecciones y aceptaciones en fábricas. Destacó por su precisión, fiabilidad, compromiso y profundo conocimiento técnico, siempre encontrando soluciones óptimas y contribuyendo significativamente al éxito de los proyectos.</p>
-                            <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Primetals.pdf" aria-label="Ver carta de recomendación">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
-                                </svg>
-                            </button>
+                        <div class="skill-category">
+                            <h3>Idiomas</h3>
+                            <div class="skill-item"><span class="skill-name">Español</span> <span class="language-level">(Nativo - C2)</span></div>
+                            <div class="skill-item"><span class="skill-name">Alemán</span> <span class="language-level">(C1)</span></div>
+                            <div class="skill-item"><span class="skill-name">Inglés</span> <span class="language-level">(B2)</span></div>
+                            <div class="skill-item"><span class="language-level">(A1)</span></div>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Automatisierungstechniken y Projektleiter <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">SPRINGER MASCHINENFABRIK GmbH, (Vollzeit), Linz, Austria</p>
-                            <p class="date">06.2019 - 07.2021</p>
-                            <p>Programador de software PLC en automatización de aserraderos. Responsable de la creación de programas en equipo, la puesta en marcha en las instalaciones del cliente final y el cierre adecuado de los proyectos. Demostró ser una persona concienzuda, leal y versátil en sus funciones.</p>
-                            <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Springer.pdf" aria-label="Ver carta de recomendación">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Promotionstätigkeiten <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">PLASMAPUNKT DONAUZENTRUM, (Freier Dienstvertrag), Viena, Austria</p>
-                            <p class="date">01.2015 - 05.2019</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Kälteanlagentechniker (Prácticas) <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">Johnson Controls, (Praktikum), Viena, Austria</p>
-                            <p class="date">02.2019 - 02.2019</p>
-                        </div>
-                    </div>
-                       <div class="timeline-item">
-                        <h3>Hilfsmitarbeiter con Logistik-Tätigkeiten <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">WIENER GEWÄSSER (MA 45), (Vollzeit), Viena, Austria</p>
-                            <p class="date">04.2016 - 01.2017</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Sales Assistent-Manager <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">SUBWAY (DON sub GmbH), (Saisonarbeit), Viena, Austria</p>
-                            <p class="date">04.2015 - 11.2015</p>
-                            <ul>
-                                <li>Encargado de almacén, ventas y caja (mucho contacto con el cliente).</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Logistikberater y IT <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">SERVICIO GEOLOGICO COLOMBIANO, (Saison-Vertrag), Bogotá, Colombia</p>
-                            <p class="date">2012 - 2013</p>
-                            <ul>
-                                <li>Control de rutas de conductores.</li>
-                                <li>Mantenimiento y presupuestación de 45 PKWs y Pickups.</li>
-                            </ul>
-                        </div>
-                    </div>
-                       <div class="timeline-item">
-                        <h3>IT-Projektleiter y Verkäufer <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">QP Consultores, Bogotá, Colombia</p>
-                            <p class="date">2010 - 2012</p>
-                            <ul>
-                                <li>System-Projektmanager y Administrador de Base de Datos.</li>
-                                <li>Venta de sistemas y servicios TI.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>IT & Logistik Manager <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="company">BRITISH AMERICAN TOBACCO (BAT), Bogotá, Colombia</p>
-                            <p class="date">2008 - 2010</p>
-                            <ul>
-                                <li>Manager de la plataforma de reportes con aplicación SAP Business Intelligence y Xcelsius.</li>
-                            </ul>
+                        <div class="skill-category">
+                            <h3>Certificados y Otros</h3>
+                            <div class="skill-item"><span class="skill-name">Permisos de Conducir: A y B</span></div>
+                            <div class="skill-item"><span class="skill-name">SCC Schulung (Safety Certificate for Contractors)</span></div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section id="education"> <h2>Formación Académica</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <h3>Produktions- y Technologiemanagement MSc <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="institution">Zukunftsakademie Mostviertel y FH St. Pölten, Austria</p>
-                            <p class="date">09.2020 - 11.2023</p>
+            <section id="experience">
+                <h2>Experiencia Laboral</h2>
+                <div class="section-content-reveal reveal-on-scroll">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h3>EMSR-Techniker <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">VOGELBUSCH Biocommodities GmbH, (Vollzeit), Viena, Austria</p>
+                                <p class="date">05.2024 - 11.2024</p>
+                                <p>Creación de documentación estándar para sistemas eléctricos e instrumentación (listas de medición, I/O, motores, consumidores) y revisión de diagramas P&I, asegurando la conformidad con los requisitos de automatización. Demostró alta proactividad y completó las tareas con plena satisfacción.</p>
+                                <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Vogelbusch.pdf" aria-label="Ver carta de recomendación">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Kälteanlagentechniker - Berufsausbildung <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
-                            <p class="date">11.2017 - 04.2019</p>
+                        <div class="timeline-item">
+                            <h3>Projektmanagement in Automatisierung y Softwareentwicklung <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">PRIMETALS TECHNOLOGIES AUSTRIA GmbH, (Vollzeit), Linz, Austria</p>
+                                <p class="date">08.2021 - 03.2024</p>
+                                <p>Rol clave en la arquitectura y desarrollo de software para proyectos de automatización y electrotecnia. Gestionó proyectos técnicos internacionales, incluyendo comunicación con clientes, negociación con proveedores, planificación de equipos eléctricos (MCC, PLCs, transformadores, motores, sensores, convertidores) y creación de documentación técnica detallada (especificaciones, estándares, layouts, listas de equipos y descripciones funcionales). Realizó inspecciones y aceptaciones en fábricas. Destacó por su precisión, fiabilidad, compromiso y profundo conocimiento técnico, siempre encontrando soluciones óptimas y contribuyendo significativamente al éxito de los proyectos.</p>
+                                <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Primetals.pdf" aria-label="Ver carta de recomendación">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Elektrotechniker Berufsausbildung (Anlagen- y Betriebstechnik) <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
-                            <p class="date">11.2017 - 04.2019</p>
+                        <div class="timeline-item">
+                            <h3>Automatisierungstechniken y Projektleiter <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">SPRINGER MASCHINENFABRIK GmbH, (Vollzeit), Linz, Austria</p>
+                                <p class="date">06.2019 - 07.2021</p>
+                                <p>Programador de software PLC en automatización de aserraderos. Responsable de la creación de programas en equipo, la puesta en marcha en las instalaciones del cliente final y el cierre adecuado de los proyectos. Demostró ser una persona concienzuda, leal y versátil en sus funciones.</p>
+                                <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Springer.pdf" aria-label="Ver carta de recomendación">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Masterstudium Maschinenbau <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="institution">Universidad de los Andes, Bogotá, Colombia</p>
-                            <p class="date">2003 - 2012</p>
-                            <p>Especialidad: Logística y Control de Producción.</p>
+                        <div class="timeline-item">
+                            <h3>Promotionstätigkeiten <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">PLASMAPUNKT DONAUZENTRUM, (Freier Dienstvertrag), Viena, Austria</p>
+                                <p class="date">01.2015 - 05.2019</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Matura (Bachillerato) <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="institution">Liceo Los Alpes, Cali, Colombia</p>
-                            <p class="date">2003</p>
+                        <div class="timeline-item">
+                            <h3>Kälteanlagentechniker (Prácticas) <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">Johnson Controls, (Praktikum), Viena, Austria</p>
+                                <p class="date">02.2019 - 02.2019</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Weiterbildung (Formación Continua) <span class="arrow"></span></h3>
-                        <div class="timeline-item-content">
-                            <p class="institution">Varios cursos y certificaciones:</p>
-                            <ul>
-                                <li>SCC Schulung (Safety Certificate for Contractors) (16h), TU Wien Austria (2021).</li>
-                                <li>Universitätskurs Modern Management - Projektmanagement (192h), Universität Graz, Austria (2016).</li>
-                                <li>Lean-Manufacturing-Kurs (50h), Brinks de Colombia, Bogotá, Colombia (2013).</li>
-                                <li>Oracle Data Base Administrator Diplom (152h), Bogotá, Colombia (2010).</li>
-                            </ul>
+                        <div class="timeline-item">
+                            <h3>Hilfsmitarbeiter con Logistik-Tätigkeiten <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">WIENER GEWÄSSER (MA 45), (Vollzeit), Viena, Austria</p>
+                                <p class="date">04.2016 - 01.2017</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>Sales Assistent-Manager <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">SUBWAY (DON sub GmbH), (Saisonarbeit), Viena, Austria</p>
+                                <p class="date">04.2015 - 11.2015</p>
+                                <ul>
+                                    <li>Encargado de almacén, ventas y caja (mucho contacto con el cliente).</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>Logistikberater y IT <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">SERVICIO GEOLOGICO COLOMBIANO, (Saison-Vertrag), Bogotá, Colombia</p>
+                                <p class="date">2012 - 2013</p>
+                                <ul>
+                                    <li>Control de rutas de conductores.</li>
+                                    <li>Mantenimiento y presupuestación de 45 PKWs y Pickups.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>IT-Projektleiter y Verkäufer <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">QP Consultores, Bogotá, Colombia</p>
+                                <p class="date">2010 - 2012</p>
+                                <ul>
+                                    <li>System-Projektmanager y Administrador de Base de Datos.</li>
+                                    <li>Venta de sistemas y servicios TI.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>IT & Logistik Manager <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="company">BRITISH AMERICAN TOBACCO (BAT), Bogotá, Colombia</p>
+                                <p class="date">2008 - 2010</p>
+                                <ul>
+                                    <li>Manager de la plataforma de reportes con aplicación SAP Business Intelligence y Xcelsius.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section id="projects"> <h2>Proyectos Destacados</h2>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Sistema de Riego Automatizado</h3>
-                        <span class="arrow"></span>
-                    </div>
-                    <div class="project-content">
-                        <p><strong>Empresa:</strong> Springer Maschinenfabrik GmbH</p>
-                        <p><strong>Descripción:</strong> Lideré el diseño e implementación de un sistema de riego innovador para mantener la humedad óptima de grandes volúmenes de troncos de madera.</p>
-                        <p><strong>Tecnologías Utilizadas:</strong> La automatización se logró con PLCs de Siemens, programados en TIA Portal. Desarrollé una interfaz de usuario avanzada con plataformas SCADA de Siemens, accesibles vía pantallas táctiles y computadores externos.</p>
-                        <p><strong>Funcionalidades Implementadas:</strong></p>
-                        <ul>
-                            <li>Selección y agrupación personalizada de aspersores.</li>
-                            <li>Ajuste preciso de los tiempos de funcionamiento del riego.</li>
-                            <li>Monitoreo en tiempo real del estado y capacidad de las bombas.</li>
-                            <li>Integración de datos ambientales (dirección del viento) para optimizar el riego.</li>
-                            <li>Registro de horas de funcionamiento para mantenimiento preventivo.</li>
-                        </ul>
-                        <p><strong>Desafío y Solución Clave:</strong> El principal desafío fue la capacidad limitada de las bombas, que impedía activar todos los aspersores simultáneamente. Diseñé y programé un sistema flexible que permitía al cliente seleccionar grupos de aspersores y crear programas de riego personalizados con diferentes salidas y tiempos de ejecución, optimizando el uso de recursos.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Optimización de Procesos de Solidificación</h3>
-                        <span class="arrow"></span>
-                    </div>
-                    <div class="project-content">
-                        <p><strong>Empresa:</strong> PRIMETALS TECHNOLOGIES AUSTRIA GmbH</p>
-                        <p><strong>Descripción:</strong> Me enfoqué en la mejora y optimización de los procesos de solidificación de metales, un componente crítico en la producción industrial.</p>
-                        <p><strong>Tecnologías Utilizadas:</strong> Este proyecto implicó la manipulación y mejora de sistemas de control existentes, predominantemente basados en sistemas Siemens y su entorno de programación TIA Portal.</p>
-                        <p><strong>Contribuciones y Logros:</strong> Mi trabajo se centró en el desarrollo de bloques de programación específicos. Estos bloques fueron diseñados para mejorar la eficiencia general y el control preciso de los procesos de producción, llevando a beneficios como la reducción de tiempos de ciclo y mejora de la calidad del producto final mediante un control más fino.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Desarrollo de Plataformas BI</h3>
-                        <span class="arrow"></span>
-                    </div>
-                    <div class="project-content">
-                        <p><strong>Empresa:</strong> QP Consultores</p>
-                        <p><strong>Descripción:</strong> Como líder de proyecto, dirigí y gestioné el desarrollo e implementación de diversas plataformas de Business Intelligence (BI) para una variedad de clientes.</p>
-                        <p><strong>Alcance y Colaboración:</strong> Este proyecto implicó la coordinación y colaboración estrecha con equipos de desarrolladores para asegurar que las soluciones de BI diseñadas no solo cumplieran con los requisitos técnicos, sino que también proporcionaran información valiosa y accionable para la toma de decisiones estratégicas de los clientes.</p>
-                        <p><strong>Gestión del Ciclo de Vida del Proyecto:</strong> Fui responsable de la gestión integral de estos proyectos, abarcando todas las fases del ciclo de vida:</p>
-                        <ul>
-                            <li>Planificación Inicial: Definición de objetivos, alcance y recursos.</li>
-                            <li>Comunicación: Mantenimiento de una comunicación fluida y efectiva con todos los stakeholders (clientes, equipos de desarrollo).</li>
-                            <li>Puesta en Marcha y Funcionamiento: Supervisión de la implementación y aseguramiento de la operatividad de las plataformas.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Líder de Proyectos TI y Ventas</h3>
-                        <span class="arrow"></span>
-                    </div>
-                    <div class="project-content">
-                        <p><strong>Empresa:</strong> QP Consultores, Bogotá, Colombia</p>
-                        <p><strong>Periodo:</strong> 2010 - 2012</p>
-                        <ul>
-                            <li>Responsable de la gestión de proyectos de sistemas informáticos.</li>
-                            <li>Administración de bases de datos para clientes.</li>
-                            <li>Participación activa en la venta de sistemas y servicios de TI, identificando necesidades de clientes y proponiendo soluciones.</li>
-                        </ul>
+            <section id="education">
+                <h2>Formación Académica</h2>
+                <div class="section-content-reveal reveal-on-scroll">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h3>Produktions- y Technologiemanagement MSc <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="institution">Zukunftsakademie Mostviertel y FH St. Pölten, Austria</p>
+                                <p class="date">09.2020 - 11.2023</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>Kälteanlagentechniker - Berufsausbildung <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
+                                <p class="date">11.2017 - 04.2019</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>Elektrotechniker Berufsausbildung (Anlagen- y Betriebstechnik) <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
+                                <p class="date">11.2017 - 04.2019</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>Masterstudium Maschinenbau <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="institution">Universidad de los Andes, Bogotá, Colombia</p>
+                                <p class="date">2003 - 2012</p>
+                                <p>Especialidad: Logística y Control de Producción.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>Matura (Bachillerato) <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="institution">Liceo Los Alpes, Cali, Colombia</p>
+                                <p class="date">2003</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>Weiterbildung (Formación Continua) <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="institution">Varios cursos y certificaciones:</p>
+                                <ul>
+                                    <li>SCC Schulung (Safety Certificate for Contractors) (16h), TU Wien Austria (2021).</li>
+                                    <li>Universitätskurs Modern Management - Projektmanagement (192h), Universität Graz, Austria (2016).</li>
+                                    <li>Lean-Manufacturing-Kurs (50h), Brinks de Colombia, Bogotá, Colombia (2013).</li>
+                                    <li>Oracle Data Base Administrator Diplom (152h), Bogotá, Colombia (2010).</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Consultor de Logística y TI</h3>
-                        <span class="arrow"></span>
+            </section>
+            <section id="projects">
+                <h2>Proyectos Destacados</h2>
+                <div class="section-content-reveal reveal-on-scroll">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Sistema de Riego Automatizado</h3>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="project-content">
+                            <p><strong>Empresa:</strong> Springer Maschinenfabrik GmbH</p>
+                            <p><strong>Descripción:</strong> Lideré el diseño e implementación de un sistema de riego innovador para mantener la humedad óptima de grandes volúmenes de troncos de madera.</p>
+                            <p><strong>Tecnologías Utilizadas:</strong> La automatización se logró con PLCs de Siemens, programados en TIA Portal. Desarrollé una interfaz de usuario avanzada con plataformas SCADA de Siemens, accesibles vía pantallas táctiles y computadores externos.</p>
+                            <p><strong>Funcionalidades Implementadas:</strong></p>
+                            <ul>
+                                <li>Selección y agrupación personalizada de aspersores.</li>
+                                <li>Ajuste preciso de los tiempos de funcionamiento del riego.</li>
+                                <li>Monitoreo en tiempo real del estado y capacidad de las bombas.</li>
+                                <li>Integración de datos ambientales (dirección del viento) para optimizar el riego.</li>
+                                <li>Registro de horas de funcionamiento para mantenimiento preventivo.</li>
+                            </ul>
+                            <p><strong>Desafío y Solución Clave:</strong> El principal desafío fue la capacidad limitada de las bombas, que impedía activar todos los aspersores simultáneamente. Diseñé y programé un sistema flexible que permitía al cliente seleccionar grupos de aspersores y crear programas de riego personalizados con diferentes salidas y tiempos de ejecución, optimizando el uso de recursos.</p>
+                        </div>
                     </div>
-                    <div class="project-content">
-                        <p><strong>Organización:</strong> SERVICIO GEOLÓGICO COLOMBIANO, Bogotá, Colombia</p>
-                        <p><strong>Periodo:</strong> 2012 - 2013</p>
-                        <ul>
-                            <li>Desarrollo e implementación de sistemas de control de rutas para optimizar la eficiencia de los conductores.</li>
-                            <li>Gestión del mantenimiento preventivo y correctivo de una flota de 45 vehículos (PKWs y Pickups).</li>
-                            <li>Elaboración y control de presupuestos para el departamento de logística y transporte.</li>
-                        </ul>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Optimización de Procesos de Solidificación</h3>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="project-content">
+                            <p><strong>Empresa:</strong> PRIMETALS TECHNOLOGIES AUSTRIA GmbH</p>
+                            <p><strong>Descripción:</strong> Me enfoqué en la mejora y optimización de los procesos de solidificación de metales, un componente crítico en la producción industrial.</p>
+                            <p><strong>Tecnologías Utilizadas:</strong> Este proyecto implicó la manipulación y mejora de sistemas de control existentes, predominantemente basados en sistemas Siemens y su entorno de programación TIA Portal.</p>
+                            <p><strong>Contribuciones y Logros:</strong> Mi trabajo se centró en el desarrollo de bloques de programación específicos. Estos bloques fueron diseñados para mejorar la eficiencia general y el control preciso de los procesos de producción, llevando a beneficios como la reducción de tiempos de ciclo y mejora de la calidad del producto final mediante un control más fino.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Voluntariado Comprometido</h3>
-                        <span class="arrow"></span>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Desarrollo de Plataformas BI</h3>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="project-content">
+                            <p><strong>Empresa:</strong> QP Consultores</p>
+                            <p><strong>Descripción:</strong> Como líder de proyecto, dirigí y gestioné el desarrollo e implementación de diversas plataformas de Business Intelligence (BI) para una variedad de clientes.</p>
+                            <p><strong>Alcance y Colaboración:</strong> Este proyecto implicó la coordinación y colaboración estrecha con equipos de desarrolladores para asegurar que las soluciones de BI diseñadas no solo cumplieran con los requisitos técnicos, sino que también proporcionaran información valiosa y accionable para la toma de decisiones estratégicas de los clientes.</p>
+                            <p><strong>Gestión del Ciclo de Vida del Proyecto:</strong> Fui responsable de la gestión integral de estos proyectos, abarcando todas las fases del ciclo de vida:</p>
+                            <ul>
+                                <li>Planificación Inicial: Definición de objetivos, alcance y recursos.</li>
+                                <li>Comunicación: Mantenimiento de una comunicación fluida y efectiva con todos los stakeholders (clientes, equipos de desarrollo).</li>
+                                <li>Puesta en Marcha y Funcionamiento: Supervisión de la implementación y aseguramiento de la operatividad de las plataformas.</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="project-content">
-                        <p><strong>Organización:</strong> Tiergarten Schönbrunn, Viena, Austria</p>
-                        <p><strong>Periodo:</strong> Desde 2016</p>
-                        <p>
-                            Colaborador voluntario de forma continua en el zoológico de Schönbrunn, demostrando un fuerte compromiso con el bienestar animal y la conservación. Esta actividad refleja dedicación, responsabilidad y pasión por la naturaleza.
-                        </p>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Líder de Proyectos TI y Ventas</h3>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="project-content">
+                            <p><strong>Empresa:</strong> QP Consultores, Bogotá, Colombia</p>
+                            <p><strong>Periodo:</strong> 2010 - 2012</p>
+                            <ul>
+                                <li>Responsable de la gestión de proyectos de sistemas informáticos.</li>
+                                <li>Administración de bases de datos para clientes.</li>
+                                <li>Participación activa en la venta de sistemas y servicios de TI, identificando necesidades de clientes y proponiendo soluciones.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Consultor de Logística y TI</h3>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="project-content">
+                            <p><strong>Organización:</strong> SERVICIO GEOLÓGICO COLOMBIANO, Bogotá, Colombia</p>
+                            <p><strong>Periodo:</strong> 2012 - 2013</p>
+                            <ul>
+                                <li>Desarrollo e implementación de sistemas de control de rutas para optimizar la eficiencia de los conductores.</li>
+                                <li>Gestión del mantenimiento preventivo y correctivo de una flota de 45 vehículos (PKWs y Pickups).</li>
+                                <li>Elaboración y control de presupuestos para el departamento de logística y transporte.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Voluntariado Comprometido</h3>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="project-content">
+                            <p><strong>Organización:</strong> Tiergarten Schönbrunn, Viena, Austria</p>
+                            <p><strong>Periodo:</strong> Desde 2016</p>
+                            <p>
+                                Colaborador voluntario de forma continua en el zoológico de Schönbrunn, demostrando un fuerte compromiso con el bienestar animal y la conservación. Esta actividad refleja dedicación, responsabilidad y pasión por la naturaleza.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
         </main>
-        <footer id="contact" class="reveal-on-scroll">
-            <div class="container">
-                <h2>Contacto</h2>
-                <div class="contact-info-item">
-                    <p>Ing. Mauricio Mora, MSc.</p>
+        <footer id="contact">
+            <h2>Contacto</h2>
+            <div class="section-content-reveal reveal-on-scroll">
+                <div class="container">
+                    <div class="contact-info-item">
+                        <p>Ing. Mauricio Mora, MSc.</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <p><strong>Teléfono:</strong> <a href="tel:+436606032876">+43 660 603 28 76</a></p>
+                    </div>
+                    <div class="contact-info-item">
+                        <p><strong>Email:</strong> <a href="mailto:mauricio.mora@gmx.at">mauricio.mora@gmx.at</a></p>
+                    </div>
+                    <div class="contact-info-item">
+                        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/ing-mauricio-mora-msc" target="_blank">www.linkedin.com/in/ing-mauricio-mora-msc</a></p>
+                    </div>
+                    <div class="contact-info-item">
+                        <p><strong>Dirección:</strong> Maximilianstraße 74b/20, 3100 St. Pölten, Austria</p>
+                    </div>
+                    <p>&copy; <span id="currentYear"></span> Mauricio Mora. Todos los derechos reservados.</p>
+                    <p>CV actualizado a Abril 2025.</p>
                 </div>
-                <div class="contact-info-item">
-                    <p><strong>Teléfono:</strong> <a href="tel:+436606032876">+43 660 603 28 76</a></p>
-                </div>
-                <div class="contact-info-item">
-                    <p><strong>Email:</strong> <a href="mailto:mauricio.mora@gmx.at">mauricio.mora@gmx.at</a></p>
-                </div>
-                <div class="contact-info-item">
-                    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/ing-mauricio-mora-msc" target="_blank">www.linkedin.com/in/ing-mauricio-mora-msc</a></p>
-                </div>
-                <div class="contact-info-item">
-                    <p><strong>Dirección:</strong> Maximilianstraße 74b/20, 3100 St. Pölten, Austria</p>
-                </div>
-                <p>&copy; <span id="currentYear"></span> Mauricio Mora. Todos los derechos reservados.</p>
-                <p>CV actualizado a Abril 2025.</p>
             </div>
         </footer>
     </div>
@@ -992,11 +1012,15 @@
         };
         
         // Reveal on Scroll & Active Link
-        const sectionsToReveal = document.querySelectorAll('.reveal-on-scroll');
+        // Ahora seleccionamos los nuevos divs .section-content-reveal para la animación
+        const sectionsToReveal = document.querySelectorAll('.section-content-reveal');
         const navLinks = document.querySelectorAll('.sticky-nav .nav-link');
         const allNavigableSections = document.querySelectorAll('header[id], section[id], footer[id]');
-        const revealOptions = { root: null, threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        
+        // Mantener rootMargin para que el contenido se revele un poco antes
+        const revealOptions = { root: null, threshold: 0.15, rootMargin: "0px 0px 200px 0px" }; 
         const activeLinkOptions = { root: null, threshold: 0.4, rootMargin: "-30% 0px -30% 0px" };
+        
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -1006,6 +1030,7 @@
         
         const activeLinkObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
+                // Para los enlaces de navegación, seguimos observando las secciones completas (por su ID)
                 const id = entry.target.getAttribute('id');
                 const navLink = document.querySelector(`.sticky-nav a[href="#${id}"]`);
                 if (navLink) {
