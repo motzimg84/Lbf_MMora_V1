@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Ing. Mauricio Mora, MSc.</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" xintegrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoVXM5RqaCRKWH3TIZxxPCskYRaHTCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" xintegrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         :root {
             --main-blue: #007bff;
@@ -31,12 +29,12 @@
             color: var(--text-dark);
             line-height: 1.6;
         }
-        /* Contenedor principal para la captura de PDF */
+        /* Contenedor principal para el CV */
         #cv-container {
             width: 100%;
-            max-width: 1200px; /* Asegura que no sea más ancho que el diseño normal */
-            margin: 0 auto; /* Centra el contenido para la captura */
-            background-color: var(--light-blue-bg); /* Fondo para el contenedor, importante para PDF */
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--light-blue-bg);
         }
 
         .container {
@@ -71,12 +69,12 @@
             background-color: #cccccc;
             transform: scale(1.05);
         }
-        .hexagon-btn svg, .hexagon-btn .icon-hamburger { /* Cambio .icon-container a .icon-hamburger */
+        .hexagon-btn svg, .hexagon-btn .icon-hamburger {
             width: 28px;
             height: 28px;
             fill: var(--icon-color-dark);
             color: var(--icon-color-dark);
-            display: flex; /* Para centrar spans de hamburguesa */
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -87,25 +85,25 @@
             width: 22px;
             height: 3px;
             background-color: var(--icon-color-dark);
-            margin: 2px 0; /* Ajustado para mejor visualización */
+            margin: 2px 0;
             transition: all 0.3s ease-in-out;
         }
         #menu-toggle-btn.open .icon-hamburger span:nth-child(1) {
-            transform: translateY(5px) rotate(45deg); /* Ajustado */
+            transform: translateY(5px) rotate(45deg);
         }
         #menu-toggle-btn.open .icon-hamburger span:nth-child(2) {
             opacity: 0;
         }
         #menu-toggle-btn.open .icon-hamburger span:nth-child(3) {
-            transform: translateY(-5px) rotate(-45deg); /* Ajustado */
+            transform: translateY(-5px) rotate(-45deg);
         }
         /* Estilos para el botón de volver arriba */
         #back-to-top-btn {
-            position: fixed; /* Ojo: se puede superponer con fixed-action-buttons si está muy arriba */
-            bottom: 20px; /* Ajusta esto si entra en conflicto con el pie de página o es muy bajo */
+            position: fixed;
+            bottom: 20px;
             right: 20px;
-            z-index: 999; /* Menor que fixed-action-buttons, pero mayor que el contenido */
-            display: none; /* Oculto por defecto */
+            z-index: 999;
+            display: none;
         }
         /* Icono para el botón de volver arriba */
         #back-to-top-btn svg {
@@ -145,7 +143,7 @@
             padding: 60px 20px;
             text-align: center;
             position: relative;
-            overflow: hidden; /* Mantenemos hidden para el efecto visual, pero para PDF se considerará */
+            overflow: hidden;
         }
         .header-content { position: relative; z-index: 2; }
         header img.profile-photo {
@@ -229,13 +227,13 @@
         .language-level { font-style: italic; color: var(--dark-blue); }
         /* Estilos para el nuevo comportamiento de timeline-item */
         .timeline-item {
-            padding: 0 40px 0 60px; /* Padding ajustado */
+            padding: 0 40px 0 60px;
             position: relative;
             background-color: var(--grey-background);
             margin-bottom: 20px;
             border-radius: var(--border-radius);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            overflow: hidden; /* Para que max-height funcione */
+            overflow: hidden;
         }
         .timeline-item::before {
             content: '📅'; position: absolute; left: 8px; top: 20px;
@@ -243,13 +241,13 @@
             border-radius: 50%; padding: 5px; width: 30px; height: 30px;
             text-align: center; line-height: 30px; border: 2px solid var(--main-blue);
         }
-        .timeline-item h3 { /* Título de la experiencia/educación */
+        .timeline-item h3 {
             margin-top: 0;
             color: var(--dark-blue);
             font-size: 1.3em;
-            padding: 20px 0; /* Padding para el título */
-            margin-bottom: 0; /* Eliminar margen inferior */
-            cursor: pointer; /* Indica que es clicable */
+            padding: 20px 0;
+            margin-bottom: 0;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -258,15 +256,15 @@
             font-size: 1.5em;
             transition: transform 0.3s ease;
         }
-        .timeline-item-content { /* Contenido que se va a desplegar */
-            padding: 0 0 20px 0; /* Padding inferior para el contenido */
+        .timeline-item-content {
+            padding: 0 0 20px 0;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-out, padding 0.5s ease-out;
         }
         .timeline-item.open .timeline-item-content {
-            max-height: 500px; /* Suficientemente grande para contener el contenido */
-            padding: 0 0 20px 0; /* Asegura el padding inferior cuando está abierto */
+            max-height: 500px;
+            padding: 0 0 20px 0;
         }
         .timeline-item.open .arrow {
             transform: rotate(90deg);
@@ -291,7 +289,7 @@
             transition: max-height 0.5s ease-out, padding 0.5s ease-out;
         }
         .project-content p, .project-content ul { margin-top: 15px; margin-bottom: 15px; }
-        .project-card.open .project-content { padding: 15px 20px; max-height: 1000px; /* Suficientemente grande para contenido */ }
+        .project-card.open .project-content { padding: 15px 20px; max-height: 1000px; }
         .project-card.open .arrow { transform: rotate(90deg); }
         footer {
             background-color: var(--dark-blue); color: var(--text-light);
@@ -301,57 +299,15 @@
         footer a { color: var(--main-blue); text-decoration: none; }
         footer a:hover { text-decoration: underline; }
         footer .contact-info-item { margin-bottom: 10px; }
-        /* Ocultar botones de acción y menú abierto durante la captura de PDF */
-        body.pdf-generating .fixed-action-buttons,
-        body.pdf-generating #back-to-top-btn {
-            display: none !important;
-        }
-        /* Mensaje de carga para PDF */
-        .pdf-loading-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: var(--dark-blue);
-            color: var(--text-light);
-            padding: 25px 30px;
-            border-radius: var(--border-radius);
-            z-index: 20000; /* Muy alto para estar encima de todo */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            font-size: 1.1em;
-        }
-        @media (max-width: 768px) {
-            .fixed-action-buttons {} /* No changes yet, consider UX */
-            header { padding: 40px 15px; }
-            header h1 { font-size: 2em; }
-            header .title { font-size: 1.2em; }
-            .skill-category { flex-basis: 100%; }
-            .timeline::before { left: 10px; }
-            .timeline-item { padding-left: 45px; }
-            .timeline-item h3 { padding: 15px 0;} /* Ajustar padding del título en móvil */
-            .timeline-item::before { left: 0; width: 25px; height: 25px; line-height: 25px; font-size: 1.2em; }
-            .timeline-item-content { padding: 0 0 15px 0;} /* Ajustar padding del contenido en móvil */
-            section { padding: 30px 15px; }
-            section h2 { font-size: 1.8em; }
-        }
-        @media (max-width: 480px) {
-            body { font-size: 15px; }
-            .fixed-action-buttons { top: 10px; right: 10px; gap: 8px; }
-            .hexagon-btn { width: 50px; height: 57.73px; }
-            .hexagon-btn svg, .hexagon-btn .icon-hamburger { width: 24px; height: 24px; }
-            .icon-hamburger span { width: 20px; height: 2.5px; margin: 1.5px 0; } /* Ajustado */
-            #menu-toggle-btn.open .icon-hamburger span:nth-child(1) { transform: translateY(4px) rotate(45deg); } /* Ajustado */
-            #menu-toggle-btn.open .icon-hamburger span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); } /* Ajustado */
-            header .profile-photo { width: 120px; height: 120px; }
-            header h1 { font-size: 1.8em; }
-            header .title { font-size: 1em; }
-            .container { width: 95%; }
-            section h2 { font-size: 1.6em; }
-            .timeline-item { padding-right: 10px; }
-        }
         
-        /* Estilos para Impresión */
+        /* Ocultar botones de acción y menú abierto durante la impresión */
         @media print {
+            .fixed-action-buttons,
+            .sticky-nav,
+            button.hexagon-btn,
+            #back-to-top-btn {
+                display: none !important;
+            }
             html, body {
                 width: auto !important;
                 height: auto !important;
@@ -359,29 +315,23 @@
                 background-color: #ffffff !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
-                color: #000000 !important; /* Texto base negro */
+                color: #000000 !important;
             }
-            .fixed-action-buttons,
-            .sticky-nav, /* El menú de navegación no debe imprimirse */
-            button.hexagon-btn, /* Todos los botones hexagonales */
-            #back-to-top-btn /* Botón de volver arriba */ {
-                display: none !important;
-            }
-            #cv-container { /* Asegurar que el contenedor principal también sea visible para impresión */
+            #cv-container {
                 box-shadow: none !important;
                 border: none !important;
                 margin-top: 0 !important;
                 margin-bottom: 0 !important;
-                padding-top: 0 !important;
-                padding-bottom: 0 !important;
+                padding: 20px !important; /* Añadir padding para márgenes de impresión */
                 width: auto !important;
                 max-width: none !important;
+                background-color: #ffffff !important; /* Asegurar fondo blanco */
             }
             header, section, footer {
                 box-shadow: none !important;
                 border: none !important;
                 margin-top: 0 !important;
-                margin-bottom: 12pt !important; /* Reducido para más contenido por página */
+                margin-bottom: 12pt !important;
                 padding-top: 5pt !important;
                 padding-bottom: 5pt !important;
             }
@@ -389,25 +339,24 @@
             header {
                 background-color: var(--header-bg) !important;
                 color: var(--text-light) !important;
-                padding: 20pt 15pt !important; /* Padding ajustado para impresión */
+                padding: 20pt 15pt !important;
             }
             header .profile-photo {
                 border: 3px solid var(--main-blue) !important;
-                max-width: 100px !important; /* Tamaño reducido para impresión */
+                max-width: 100px !important;
                 max-height: 100px !important;
             }
             header h1 { font-size: 18pt !important; color: var(--text-light) !important; }
             header .title { font-size: 12pt !important; color: var(--main-blue) !important; }
-            header .header-description { font-size: 10pt !important; color: #f0f0f0 !important; } /* Aclarado para no gastar tinta */
-            .hexagon-bg { /* Hexágonos del header */
-                display: block !important; /* Intentar mostrar */
-                opacity: 0.08 !important; /* Muy sutiles para no gastar tinta y no tapar */
+            header .header-description { font-size: 10pt !important; color: #f0f0f0 !important; }
+            .hexagon-bg {
+                display: block !important;
+                opacity: 0.08 !important;
                 z-index: -1 !important;
             }
-            .hexagon { /* Hexágonos individuales */
+            .hexagon {
                 background-color: rgba(0, 123, 255, 0.08) !important;
                 animation: none !important;
-                /* No se puede garantizar clip-path en todos los motores de impresión */
             }
             .reveal-on-scroll {
                 opacity: 1 !important;
@@ -415,12 +364,12 @@
                 visibility: visible !important;
             }
             .project-card {
-                page-break-inside: avoid !important;
-                border: 1px solid #ccc !important; /* Borde sutil para separar */
+                page-break-inside: avoid !important; /* Evita que los bloques se corten */
+                border: 1px solid #ccc !important;
                 margin-bottom: 10pt !important;
             }
             .project-card .project-header {
-                background-color: #eaeaea !important; /* Fondo más claro para header de proyecto */
+                background-color: #eaeaea !important;
                 color: #333333 !important;
                 padding: 8pt 10pt !important;
             }
@@ -428,12 +377,12 @@
                 font-size: 11pt !important;
              }
             .project-card .project-content {
-                max-height: none !important;
+                max-height: none !important; /* Asegura que el contenido esté completamente visible */
                 padding: 8pt 10pt !important;
                 opacity: 1 !important;
                 visibility: visible !important;
                 display: block !important;
-                background-color: #ffffff !important; /* Asegurar fondo blanco */
+                background-color: #ffffff !important;
             }
             .project-card .arrow { display: none !important; }
             
@@ -445,36 +394,34 @@
             
             /* Asegurar que el contenido del timeline-item se muestre */
             .timeline-item {
-                page-break-inside: avoid !important;
+                page-break-inside: avoid !important; /* Evita que los bloques se corten */
                 border-bottom: 1px solid #eee !important;
-                padding: 0 !important; /* Resetear padding del contenedor */
+                padding: 0 !important;
                 margin-bottom: 10pt !important;
             }
             .timeline-item h3 {
-                padding: 10pt 10pt 0 40pt !important; /* Padding para el título */
-                display: block !important; /* Para que el h3 no tome espacio de la flecha */
+                padding: 10pt 10pt 0 40pt !important;
+                display: block !important;
             }
             .timeline-item .timeline-item-content {
-                max-height: none !important;
-                padding: 0 10pt 10pt 40pt !important; /* Padding para el contenido */
+                max-height: none !important; /* Asegura que el contenido esté completamente visible */
+                padding: 0 10pt 10pt 40pt !important;
                 opacity: 1 !important;
                 visibility: visible !important;
                 display: block !important;
             }
-            .timeline-item .arrow { display: none !important; } /* Ocultar flecha */
+            .timeline-item .arrow { display: none !important; }
             .timeline-item::before { font-size: 1.2em !important; left: 5px !important; top: 10px !important; }
             .timeline-item h3 { font-size: 11pt !important; }
             .timeline-item .date { font-size: 9pt !important; }
             
             p, li, span {
-                font-size: 10pt !important; /* Tamaño de fuente base para impresión */
+                font-size: 10pt !important;
                 color: #000000 !important;
             }
             ul { padding-left: 20pt !important; }
             
             a { text-decoration: none !important; color: var(--dark-blue) !important; }
-            /* Opcional: mostrar URLs completas para enlaces externos */
-            /* a[href^="http"]::after { content: " [" attr(href) "]"; font-size: 0.8em; color: #555555 !important; } */
             img { max-width: 100% !important; page-break-inside: avoid !important; }
             footer { padding: 15pt !important; }
             footer h2 { font-size: 14pt !important; }
@@ -501,9 +448,9 @@
                 <li><a href="#contact" class="nav-link">Contacto</a></li>
             </ul>
         </nav>
-        <button id="pdf-download-btn" class="hexagon-btn" aria-label="Descargar PDF">
-            <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px; height:28px;">
-                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13v4h-2v-4H9.5l2.5-2.5 2.5 2.5H17zm-5-2L7 15h3v4h4v-4h3l-5-5z" transform="translate(0,1)"/>
+        <button id="print-btn" class="hexagon-btn" aria-label="Imprimir CV">
+            <svg viewBox="0 0 576 512" fill="currentColor" style="width:28px; height:28px;">
+                <path d="M576 288c0-35.3-28.7-64-64-64h-96V64c0-35.3-28.7-64-64-64H192c-35.3 0-64 28.7-64 64v160H32c-35.3 0-64 28.7-64 64v112c0 44.2 35.8 80 80 80h416c44.2 0 80-35.8 80-80V288zM480 288a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM192 192v-64h192v64H192zm288 192a16 16 0 1 0 0-32 16 16 0 1 0 0 32z"/>
             </svg>
         </button>
     </div>
@@ -512,7 +459,8 @@
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
         </svg>
     </button>
-    <div id="cv-container"> <header id="home">
+    <div id="cv-container">
+        <header id="home">
             <div class="hexagon-bg" id="hexagon-container"></div>
             <div class="header-content">
                 <img src="Img/Bild Mauricio Mora.jpg" alt="Foto de Perfil Mauricio Mora" class="profile-photo">
@@ -549,7 +497,7 @@
                         <div class="skill-item"><span class="skill-name">Español</span> <span class="language-level">(Nativo - C2)</span></div>
                         <div class="skill-item"><span class="skill-name">Alemán</span> <span class="language-level">(C1)</span></div>
                         <div class="skill-item"><span class="skill-name">Inglés</span> <span class="language-level">(B2)</span></div>
-                        <div class="skill-item"><span class="skill-name">Francés</span> <span class="language-level">(A1)</span></div>
+                        <div class="skill-item"><span class="language-level">(A1)</span></div>
                     </div>
                        <div class="skill-category">
                         <h3>Certificados y Otros</h3>
@@ -815,7 +763,8 @@
                 <p>CV actualizado a Abril 2025.</p>
             </div>
         </footer>
-    </div> <script>
+    </div>
+    <script>
         // Hexagon animation
         const hexagonContainer = document.getElementById('hexagon-container');
         const numberOfHexagons = 20;
@@ -832,29 +781,26 @@
             hexagon.style.backgroundColor = `rgba(0, 123, 255, ${Math.random() * 0.25 + 0.20})`;
             hexagonContainer.appendChild(hexagon);
         }
-        // Project card collapsible (already implemented, no change here)
+        // Project card collapsible
         const projectHeaders = document.querySelectorAll('.project-header');
         projectHeaders.forEach(header => {
             header.addEventListener('click', () => {
                 const projectCard = header.parentElement;
                 const content = projectCard.querySelector('.project-content');
-                // Toggle 'open' class on the card
                 projectCard.classList.toggle('open');
-                // Adjust max-height for smooth transition
                 if (projectCard.classList.contains('open')) {
-                    content.style.maxHeight = content.scrollHeight + "px"; // Expand
+                    content.style.maxHeight = content.scrollHeight + "px";
                 } else {
-                    content.style.maxHeight = '0'; // Collapse
+                    content.style.maxHeight = '0';
                 }
             });
         });
-        // Timeline item collapsible (NEW / MODIFIED)
+        // Timeline item collapsible
         const timelineItems = document.querySelectorAll('.timeline-item');
         timelineItems.forEach(item => {
-            const h3 = item.querySelector('h3'); // Get the h3 inside timeline-item
-            const content = item.querySelector('.timeline-item-content'); // Get the new content wrapper
+            const h3 = item.querySelector('h3');
+            const content = item.querySelector('.timeline-item-content');
             
-            // Ensure content exists for items that should be collapsible
             if (content) {
                 h3.addEventListener('click', () => {
                     item.classList.toggle('open');
@@ -874,7 +820,7 @@
             profilePhoto.alt = "MM";
             const initialsDiv = document.createElement('div');
             initialsDiv.textContent = 'MM';
-            initialsDiv.style.width = profilePhoto.width + 'px'; // Usar dimensiones de la imagen original si es posible
+            initialsDiv.style.width = profilePhoto.width + 'px';
             initialsDiv.style.height = profilePhoto.height + 'px';
             initialsDiv.style.borderRadius = '50%';
             initialsDiv.style.border = '5px solid var(--main-blue)';
@@ -883,8 +829,8 @@
             initialsDiv.style.justifyContent = 'center';
             initialsDiv.style.backgroundColor = 'var(--grey-background)';
             initialsDiv.style.color = 'var(--dark-blue)';
-            initialsDiv.style.fontSize = Math.min(profilePhoto.width, profilePhoto.height) / 3 + 'px'; // Ajustar tamaño de fuente
-            initialsDiv.style.margin = profilePhoto.style.margin; // Copiar márgenes
+            initialsDiv.style.fontSize = Math.min(profilePhoto.width, profilePhoto.height) / 3 + 'px';
+            initialsDiv.style.margin = profilePhoto.style.margin;
             profilePhoto.parentNode.replaceChild(initialsDiv, profilePhoto);
         };
         
@@ -910,8 +856,6 @@
                         navLinks.forEach(link => link.classList.remove('active-link'));
                         navLink.classList.add('active-link');
                     } else {
-                        // Solo remover si no es la sección actual y el umbral no se cumple
-                        // Esto ayuda a mantener el "active-link" en la última sección visible
                         if (!entry.isIntersecting && navLink.classList.contains('active-link')) {
                             navLink.classList.remove('active-link');
                         }
@@ -928,143 +872,42 @@
             stickyNav.classList.toggle('open');
             menuToggleBtn.setAttribute('aria-expanded', menuToggleBtn.classList.contains('open'));
         });
-        // Back to Top Button (NEW)
+        // Back to Top Button
         const backToTopBtn = document.getElementById('back-to-top-btn');
-        const headerSection = document.getElementById('home'); // Get the header section
+        const headerSection = document.getElementById('home');
         const headerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.target === headerSection) {
                     if (entry.isIntersecting) {
-                        backToTopBtn.style.display = 'none'; // Hide when header is visible
+                        backToTopBtn.style.display = 'none';
                     } else {
-                        backToTopBtn.style.display = 'flex'; // Show when header is out of view
+                        backToTopBtn.style.display = 'flex';
                     }
                 }
             });
-        }, { threshold: 0 }); // Threshold 0 means it triggers as soon as any part of the header is visible/invisible
-        headerObserver.observe(headerSection); // Observe the header
+        }, { threshold: 0 });
+        headerObserver.observe(headerSection);
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         });
-        // PDF Download
-        const pdfDownloadBtn = document.getElementById('pdf-download-btn');
-        pdfDownloadBtn.addEventListener('click', () => {
-            const loadingMessage = document.createElement('div');
-            loadingMessage.className = 'pdf-loading-message'; // Clase para estilos
-            loadingMessage.textContent = 'Generando PDF, por favor espera...';
-            document.body.appendChild(loadingMessage);
-            document.body.classList.add('pdf-generating'); // Oculta botones de acción
-            
-            // Define el contenedor que se va a capturar
-            const cvContainer = document.getElementById('cv-container');
+        // Print Button (MODIFIED)
+        const printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', () => {
+            // Oculta los botones de acción antes de imprimir
+            // La clase 'pdf-generating' se usa aquí para aplicar los estilos de @media print
+            document.body.classList.add('pdf-generating'); 
 
-            // Pequeña demora para que el mensaje de carga se muestre y los estilos se apliquen
+            window.print(); // Llama al diálogo de impresión nativo del navegador
+
+            // Restaura el estado original después de que el diálogo de impresión se cierra
+            // Un pequeño retraso para asegurar que el diálogo se haya abierto
             setTimeout(() => {
-                try {
-                    // Verificar si las librerías están cargadas
-                    if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
-                        throw new Error("Librerías PDF no cargadas. Asegúrate de que las URLs de CDN sean correctas.");
-                    }
-                    const { jsPDF } = window.jspdf;
-                    
-                    html2canvas(cvContainer, { // Ahora se captura el nuevo contenedor
-                        scale: 1.5, // Mayor escala para mejor resolución
-                        useCORS: true, // Importante si hay imágenes de diferentes dominios
-                        logging: false, // Desactiva logs de html2canvas en consola
-                        scrollX: 0,
-                        scrollY: 0,
-                        // No es necesario ajustar windowWidth/Height si se captura un elemento específico
-                        onclone: (documentClone) => {
-                            // Aplicar estilos para la captura en el clon del DOM
-                            // Asegurar que las secciones revelables estén visibles en el clon
-                            Array.from(documentClone.querySelectorAll('.reveal-on-scroll')).forEach(section => {
-                                section.style.opacity = '1';
-                                section.style.transform = 'translateY(0)';
-                                section.style.visibility = 'visible';
-                            });
-                            // Asegurar que todos los contenidos colapsables estén abiertos para el PDF
-                            Array.from(documentClone.querySelectorAll('.project-card, .timeline-item')).forEach(item => {
-                                const content = item.querySelector('.project-content') || item.querySelector('.timeline-item-content');
-                                if (content) {
-                                   content.style.maxHeight = '2000px'; // Usar un valor grande en px en lugar de 'none'
-                                   content.style.paddingTop = '15px'; // Asegurar padding si es necesario
-                                   content.style.paddingBottom = '15px';
-                                   content.style.opacity = '1';
-                                   content.style.visibility = 'visible';
-                                   content.style.display = 'block';
-                                }
-                            });
-                            // Ocultar elementos de UI interactivos en el clon
-                            const actionButtonsClone = documentClone.querySelector('.fixed-action-buttons');
-                            if (actionButtonsClone) actionButtonsClone.style.display = 'none';
-                            const backToTopBtnClone = documentClone.getElementById('back-to-top-btn');
-                            if (backToTopBtnClone) backToTopBtnClone.style.display = 'none';
-                            const stickyNavClone = documentClone.querySelector('.sticky-nav');
-                            if (stickyNavClone) stickyNavClone.style.display = 'none'; // Asegurar que el menú fijo se oculte
-
-                            // Añadir padding al contenedor principal para asegurar márgenes en el PDF
-                            const clonedCvContainer = documentClone.getElementById('cv-container');
-                            if (clonedCvContainer) {
-                                clonedCvContainer.style.padding = '20px'; // Un padding general para el PDF
-                                clonedCvContainer.style.backgroundColor = 'white'; // Asegurar fondo blanco para el PDF
-                            }
-                        }
-                    }).then(canvas => {
-                        const imgData = canvas.toDataURL('image/png');
-                        const pdf = new jsPDF('p', 'pt', 'a4');
-                        const pdfPageWidth = pdf.internal.pageSize.getWidth();
-                        const pdfPageHeight = pdf.internal.pageSize.getHeight();
-                        
-                        const imgWidth = pdfPageWidth;
-                        const imgHeight = canvas.height * imgWidth / canvas.width;
-                        let heightLeft = imgHeight;
-                        
-                        let position = 0;
-                        
-                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                        heightLeft -= pdfPageHeight;
-                        
-                        while (heightLeft >= 0) {
-                            position = heightLeft - imgHeight;
-                            pdf.addPage();
-                            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                            heightLeft -= pdfPageHeight;
-                        }
-                        pdf.save('cv_mauricio_mora.pdf');
-                    }).catch(error => {
-                        console.error("Error al generar PDF con html2canvas:", error);
-                        alert("Hubo un error al generar el PDF. Por favor, revisa la consola del navegador para más detalles.");
-                    }).finally(() => {
-                        document.body.classList.remove('pdf-generating');
-                        if (loadingMessage.parentNode) {
-                            loadingMessage.parentNode.removeChild(loadingMessage);
-                        }
-                    });
-                } catch (e) {
-                    console.error("Error general al preparar PDF:", e);
-                    alert("Ocurrió un error inesperado al preparar la generación del PDF.");
-                    document.body.classList.remove('pdf-generating');
-                    if (loadingMessage.parentNode) {
-                        loadingMessage.parentNode.removeChild(loadingMessage);
-                    }
-                }
-            }, 100); // Pequeña demora para mostrar mensaje de carga y aplicar clase.
+                document.body.classList.remove('pdf-generating');
+            }, 500); 
         });
     </script>
 </body>
 </html>
-```
-Con estos cambios, la generación del PDF debería ser más robusta y los márgenes deberían verse mejor.
-
-**Pasos para probar y verificar:**
-
-1.  **Copia y pega** este código en tu archivo HTML.
-2.  **Guarda** los cambios.
-3.  **Abre** la página en tu navegador.
-4.  **Haz clic** en el botón de descarga de PDF.
-5.  **Verifica** si el PDF se genera correctamente y si los márgenes y el contenido se ven mejor.
-
-Si el problema persiste, por favor, **copia y pega cualquier mensaje de error que aparezca en la consola del navegador** para que pueda investigarlo más a fondo. ¡Estoy aquí para ayudarte a conseguir que funcione perfectamen
