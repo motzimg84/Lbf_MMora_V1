@@ -249,17 +249,12 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             overflow: hidden;
         }
-        .timeline-item::before {
-            content: '📅'; position: absolute; left: 8px; top: 20px;
-            font-size: 1.5em; color: var(--dark-blue); background-color: var(--text-light);
-            border-radius: 50%; padding: 5px; width: 30px; height: 30px;
-            text-align: center; line-height: 30px; border: 2px solid var(--main-blue);
-        }
+        /* Removed the ::before pseudo-element for the date emoji */
         .timeline-item h3 {
             margin-top: 0;
             color: var(--dark-blue);
             font-size: 1.3em;
-            padding: 20px 0;
+            padding: 20px 0 5px 0; /* Adjusted padding to make space for date */
             margin-bottom: 0;
             cursor: pointer;
             display: flex;
@@ -280,6 +275,55 @@
             transform: scale(1.2); /* Agrandar al pasar el ratón */
         }
 
+        /* Styling for the gear icon */
+        .timeline-item .timeline-icon {
+            position: absolute;
+            left: 8px;
+            top: 20px;
+            width: 40px; /* Size of the icon container */
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--text-light);
+            border-radius: 50%; /* Circular background */
+            border: 2px solid var(--main-blue);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .timeline-item .gear-icon {
+            width: 30px; /* Size of the SVG gear */
+            height: 30px;
+            fill: var(--dark-blue); /* Color of the gear */
+            animation: rotateGear 4s linear infinite; /* Animation for rolling */
+        }
+
+        @keyframes rotateGear {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Specific icons for Education sections */
+        .timeline-item .graduation-cap-icon {
+            width: 30px;
+            height: 30px;
+            fill: var(--dark-blue);
+        }
+
+        .timeline-item .open-book-icon {
+            width: 30px;
+            height: 30px;
+            fill: var(--dark-blue);
+        }
+
+        /* Styling for the date */
+        .timeline-item .date {
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
+            margin: 0 0 10px 60px; /* Adjust margin to align with content */
+        }
+
         .timeline-item-content {
             padding: 0 0 20px 0;
             max-height: 0;
@@ -287,7 +331,7 @@
             transition: max-height 0.5s ease-out, padding 0.5s ease-out;
         }
         .timeline-item.open .timeline-item-content {
-            max-height: 500px;
+            max-height: 1000px; /* Increased max-height for detailed content */
             padding: 0 0 20px 0;
         }
         /* Estilos para el símbolo + / - en project-card */
@@ -582,6 +626,7 @@
                 <li><a href="#skills" class="nav-link">Conocimientos</a></li>
                 <li><a href="#experience" class="nav-link">Experiencia</a></li>
                 <li><a href="#education" class="nav-link">Formación</a></li>
+                <li><a href="#complementary-education" class="nav-link">Formación Complementaria</a></li>
                 <li><a href="#projects" class="nav-link">Proyectos</a></li>
                 <li><a href="#contact" class="nav-link">Contacto</a></li>
             </ul>
@@ -655,10 +700,15 @@
                 <div class="section-content-reveal reveal-on-scroll">
                     <div class="timeline">
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6 9.4-11.6 16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
                             <h3>EMSR-Techniker <span class="arrow"></span></h3>
+                            <p class="date">05.2024 - 11.2024</p>
                             <div class="timeline-item-content">
                                 <p class="company">VOGELBUSCH Biocommodities GmbH, (Vollzeit), Viena, Austria</p>
-                                <p class="date">05.2024 - 11.2024</p>
                                 <p>Creación de documentación estándar para sistemas eléctricos e instrumentación (listas de medición, I/O, motores, consumidores) y revisión de diagramas P&I, asegurando la conformidad con los requisitos de automatización. Demostró alta proactividad y completó las tareas con plena satisfacción.</p>
                                 <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Vogelbusch.pdf" aria-label="Ver carta de recomendación">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -668,10 +718,15 @@
                             </div>
                         </div>
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6 9.4-11.6 16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
                             <h3>Projektmanagement in Automatisierung y Softwareentwicklung <span class="arrow"></span></h3>
+                            <p class="date">08.2021 - 03.2024</p>
                             <div class="timeline-item-content">
                                 <p class="company">PRIMETALS TECHNOLOGIES AUSTRIA GmbH, (Vollzeit), Linz, Austria</p>
-                                <p class="date">08.2021 - 03.2024</p>
                                 <p>Rol clave en la arquitectura y desarrollo de software para proyectos de automatización y electrotecnia. Gestionó proyectos técnicos internacionales, incluyendo comunicación con clientes, negociación con proveedores, planificación de equipos eléctricos (MCC, PLCs, transformadores, motores, sensores, convertidores) y creación de documentación técnica detallada (especificaciones, estándares, layouts, listas de equipos y descripciones funcionales). Realizó inspecciones y aceptaciones en fábricas. Destacó por su precisión, fiabilidad, compromiso y profundo conocimiento técnico, siempre encontrando soluciones óptimas y contribuyendo significativamente al éxito de los proyectos.</p>
                                 <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Primetals.pdf" aria-label="Ver carta de recomendación">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -681,10 +736,15 @@
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <h3>Automatisierungstechniken y Projektleiter <span class="arrow"></span></h3>
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6-9.4 11.6-16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
+                            <h3>Automatisierungstechniker y Projektleiter <span class="arrow"></span></h3>
+                            <p class="date">06.2019 - 07.2021</p>
                             <div class="timeline-item-content">
                                 <p class="company">SPRINGER MASCHINENFABRIK GmbH, (Vollzeit), Linz, Austria</p>
-                                <p class="date">06.2019 - 07.2021</p>
                                 <p>Programador de software PLC en automatización de aserraderos. Responsable de la creación de programas en equipo, la puesta en marcha en las instalaciones del cliente final y el cierre adecuado de los proyectos. Demostró ser una persona concienzuda, leal y versátil en sus funciones.</p>
                                 <button class="document-btn" data-pdf-path="pdf/Dienstzeugnis Springer.pdf" aria-label="Ver carta de recomendación">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -694,41 +754,66 @@
                             </div>
                         </div>
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6-9.4 11.6-16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
                             <h3>Promotionstätigkeiten <span class="arrow"></span></h3>
+                            <p class="date">01.2015 - 05.2019</p>
                             <div class="timeline-item-content">
                                 <p class="company">PLASMAPUNKT DONAUZENTRUM, (Freier Dienstvertrag), Viena, Austria</p>
-                                <p class="date">01.2015 - 05.2019</p>
                             </div>
                         </div>
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6-9.4 11.6-16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
                             <h3>Kälteanlagentechniker (Prácticas) <span class="arrow"></span></h3>
+                            <p class="date">02.2019 - 02.2019</p>
                             <div class="timeline-item-content">
                                 <p class="company">Johnson Controls, (Praktikum), Viena, Austria</p>
-                                <p class="date">02.2019 - 02.2019</p>
                             </div>
                         </div>
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6-9.4 11.6-16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
                             <h3>Hilfsmitarbeiter con Logistik-Tätigkeiten <span class="arrow"></span></h3>
+                            <p class="date">04.2016 - 01.2017</p>
                             <div class="timeline-item-content">
                                 <p class="company">WIENER GEWÄSSER (MA 45), (Vollzeit), Viena, Austria</p>
-                                <p class="date">04.2016 - 01.2017</p>
                             </div>
                         </div>
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6-9.4 11.6-16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
                             <h3>Sales Assistent-Manager <span class="arrow"></span></h3>
+                            <p class="date">04.2015 - 11.2015</p>
                             <div class="timeline-item-content">
                                 <p class="company">SUBWAY (DON sub GmbH), (Saisonarbeit), Viena, Austria</p>
-                                <p class="date">04.2015 - 11.2015</p>
                                 <ul>
                                     <li>Encargado de almacén, ventas y caja (mucho contacto con el cliente).</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6-9.4 11.6-16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
                             <h3>Logistikberater y IT <span class="arrow"></span></h3>
+                            <p class="date">2012 - 2013</p>
                             <div class="timeline-item-content">
                                 <p class="company">SERVICIO GEOLOGICO COLOMBIANO, (Saison-Vertrag), Bogotá, Colombia</p>
-                                <p class="date">2012 - 2013</p>
                                 <ul>
                                     <li>Control de rutas de conductores.</li>
                                     <li>Mantenimiento y presupuestación de 45 PKWs y Pickups.</li>
@@ -736,10 +821,15 @@
                             </div>
                         </div>
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6-9.4 11.6-16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
                             <h3>IT-Projektleiter y Verkäufer <span class="arrow"></span></h3>
+                            <p class="date">2010 - 2012</p>
                             <div class="timeline-item-content">
                                 <p class="company">QP Consultores, Bogotá, Colombia</p>
-                                <p class="date">2010 - 2012</p>
                                 <ul>
                                     <li>System-Projektmanager y Administrador de Base de Datos.</li>
                                     <li>Venta de sistemas y servicios TI.</li>
@@ -747,10 +837,15 @@
                             </div>
                         </div>
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 1.5-11.6 2.4-17.6 2.4c-11.3 0-22.2-3.4-31.5-9.7l-33.6-22.4c-11.3 10.7-23.8 19.8-37.2 27.3l-2.4 1.6c-4.2 2.7-8.7 5-13.3 7c-6.7 2.9-11.6 9.4-11.6 16.6V448c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V400c0-7.2-4.9-13.7-11.6-16.6c-4.6-2-9.1-4.3-13.3-7l-2.4-1.6c-13.4-7.5-25.9-16.6-37.2-27.3L69.9 362.6c-9.3 6.3-20.2 9.7-31.5 9.7c-6 0-11.7-.9-17.6-2.4c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 270.8 64 262.3 64 253.6s.6-17.1 1.7-25.4L22.4 188.8c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-1.5 11.6-2.4 17.6-2.4c11.3 0 22.2 3.4 31.5 9.7l33.6 22.4c11.3-10.7 23.8-19.8 37.2-27.3l2.4-1.6c4.2-2.7 8.7-5 13.3-7c6.7-2.9 11.6-9.4 11.6-16.6V64c0-17.7 14.3-32 32-32H352c17.7 0 32 14.3 32 32v48c0 7.2 4.9 13.7 11.6 16.6c4.6 2 9.1 4.3 13.3 7l2.4 1.6c13.4 7.5 25.9 16.6 37.2 27.3l33.6 22.4c9.3-6.3 20.2-9.7 31.5-9.7c6 0 11.7.9 17.6 2.4c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM256 224a32 32 0 1 0 0 64 32 32 0 1 0 0-64z"/>
+                                </svg>
+                            </div>
                             <h3>IT & Logistik Manager <span class="arrow"></span></h3>
+                            <p class="date">2008 - 2010</p>
                             <div class="timeline-item-content">
                                 <p class="company">BRITISH AMERICAN TOBACCO (BAT), Bogotá, Colombia</p>
-                                <p class="date">2008 - 2010</p>
                                 <ul>
                                     <li>Manager de la plataforma de reportes con aplicación SAP Business Intelligence y Xcelsius.</li>
                                 </ul>
@@ -763,11 +858,103 @@
                 <h2>Formación Académica</h2>
                 <div class="section-content-reveal reveal-on-scroll">
                     <div class="timeline">
+                        <div class="timeline-item"> 
+                            <div class="timeline-icon">
+                                <svg class="graduation-cap-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.5 140.9 0 149.9 0 160c0 10.1 6.5 19.1 15.8 22.6L296.3 315.9c7.6 2.7 15.6 4.1 23.7 4.1s16.1-1.4 23.7-4.1L624.2 182.6c9.3-3.5 15.8-12.5 15.8-22.6c0-10.1-6.5-19.1-15.8-22.6L343.7 36.1C336.1 33.4 328.1 32 320 32zm0 128L555.2 233.9 320 326.1 84.8 233.9 320 160zm0 96L12.4 333.3c-8.8 3.3-12.4 12.4-7.2 21l33.3 55.5c5.2 8.8 14.3 12.4 23.2 9.1L320 384l258.3 97.4c8.8 3.3 17.9-.3 23.2-9.1l33.3-55.5c5.2-8.8 1.6-17.9-7.2-21L320 256z"/>
+                                </svg>
+                            </div>
+                            <h3>Produktions- und Technologiemanagement MSc <span class="arrow"></span></h3>
+                            <p class="date">09.2020 - 11.2023</p>
+                            <div class="timeline-item-content">
+                                <p class="institution">Zukunftsakademie Mostviertel und FH St. Pölten, Austria</p>
+                                <p>
+                                    El programa de Máster "Gestión de Producción y Tecnología (MSc)" capacita a los graduados para diseñar procesos de producción de manera eficiente e implementar innovaciones tecnológicas en la industria. Un tema central del estudio es la gestión de proyectos, que permite a los estudiantes planificar y controlar eficazmente proyectos complejos en el sector de la producción y la tecnología. Aprenden técnicas para la estructuración de proyectos, la planificación de recursos y tiempos, así como la gestión de riesgos, para implementar con éxito proyectos dinámicos y técnicamente exigentes.
+                                    Además, el programa pone un fuerte énfasis en los métodos de Lean Manufacturing, que tienen como objetivo maximizar la eficiencia y la calidad en la producción. Conceptos como el Sistema de Producción Toyota, Kaizen y Six Sigma son componentes importantes del plan de estudios. Estos métodos sirven para minimizar el desperdicio y aumentar la productividad, fomentando mejoras continuas en los procesos de producción. Los estudiantes aprenden a analizar sistemáticamente las cadenas de valor y a desarrollar estrategias de mejora sostenibles que garantizan alta calidad y bajos costos.
+                                    El programa prepara a los graduados para puestos de liderazgo en empresas de producción y tecnología. A través de la interacción de la gestión de proyectos y el Lean Manufacturing, desarrollan una comprensión profunda de los enfoques de gestión modernos que son demandados en una industria digitalizada y globalizada. Los graduados están perfectamente cualificados para integrar los avances tecnológicos de manera específica en los procesos de producción y crear ventajas competitivas. El Máster "Gestión de Producción y Tecnología" ofrece así una formación práctica y orientada al futuro, que se basa en los requisitos de una industria en constante evolución y tiene como objetivo enfrentar los desafíos de la producción moderna con soluciones innovadoras y sostenibles.
+                                </p>
+                                <button class="document-btn" data-pdf-path="pdf/MSc_PTM_Mauricio_Mora.pdf" aria-label="Ver descripción del Master">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                                    </svg>
+                                </button>
+                                <p><strong>Masterarbeit:</strong></p>
+                                <p>
+                                    Mi tesis de maestría, "Empirische Bewertung der Vorteile von MUL (Maßeinheitenumwandlung und Lineal) bei la Umrechnung von Maßeinheiten: Ein Vergleich mit la traditionellen Methode", evaluó empíricamente los beneficios de un método alternativo (MUL) <span style="font-weight: bold;">desarrollado por mí</span> para la conversión de unidades de medida, en comparación con el enfoque tradicional. A través de un análisis detallado, la investigación arrojó luz sobre la eficacia de este nuevo método en el aprendizaje y la aplicación práctica, ofreciendo una perspectiva valiosa para la didáctica de las ciencias y la ingeniería.
+                                </p>
+                                <button class="document-btn" data-pdf-path="pdf/20230824_Masterthesis_PTM_Mauricio_Mora.pdf" aria-label="Ver Masterarbeit">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="graduation-cap-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.5 140.9 0 149.9 0 160c0 10.1 6.5 19.1 15.8 22.6L296.3 315.9c7.6 2.7 15.6 4.1 23.7 4.1s16.1-1.4 23.7-4.1L624.2 182.6c9.3-3.5 15.8-12.5 15.8-22.6c0-10.1-6.5-19.1-15.8-22.6L343.7 36.1C336.1 33.4 328.1 32 320 32zm0 128L555.2 233.9 320 326.1 84.8 233.9 320 160zm0 96L12.4 333.3c-8.8 3.3-12.4 12.4-7.2 21l33.3 55.5c5.2 8.8 14.3 12.4 23.2 9.1L320 384l258.3 97.4c8.8 3.3 17.9-.3 23.2-9.1l33.3-55.5c5.2-8.8 1.6-17.9-7.2-21L320 256z"/>
+                                </svg>
+                            </div>
+                            <h3>Kälteanlagentechniker - Berufsausbildung <span class="arrow"></span></h3>
+                            <p class="date">11.2017 - 04.2019</p>
+                            <div class="timeline-item-content">
+                                <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="graduation-cap-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.5 140.9 0 149.9 0 160c0 10.1 6.5 19.1 15.8 22.6L296.3 315.9c7.6 2.7 15.6 4.1 23.7 4.1s16.1-1.4 23.7-4.1L624.2 182.6c9.3-3.5 15.8-12.5 15.8-22.6c0-10.1-6.5-19.1-15.8-22.6L343.7 36.1C336.1 33.4 328.1 32 320 32zm0 128L555.2 233.9 320 326.1 84.8 233.9 320 160zm0 96L12.4 333.3c-8.8 3.3-12.4 12.4-7.2 21l33.3 55.5c5.2 8.8 14.3 12.4 23.2 9.1L320 384l258.3 97.4c8.8 3.3 17.9-.3 23.2-9.1l33.3-55.5c5.2-8.8 1.6-17.9-7.2-21L320 256z"/>
+                                </svg>
+                            </div>
+                            <h3>Elektrotechniker Berufsausbildung (Anlagen- und Betriebstechnik) <span class="arrow"></span></h3>
+                            <p class="date">11.2017 - 04.2019</p>
+                            <div class="timeline-item-content">
+                                <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="graduation-cap-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.5 140.9 0 149.9 0 160c0 10.1 6.5 19.1 15.8 22.6L296.3 315.9c7.6 2.7 15.6 4.1 23.7 4.1s16.1-1.4 23.7-4.1L624.2 182.6c9.3-3.5 15.8-12.5 15.8-22.6c0-10.1-6.5-19.1-15.8-22.6L343.7 36.1C336.1 33.4 328.1 32 320 32zm0 128L555.2 233.9 320 326.1 84.8 233.9 320 160zm0 96L12.4 333.3c-8.8 3.3-12.4 12.4-7.2 21l33.3 55.5c5.2 8.8 14.3 12.4 23.2 9.1L320 384l258.3 97.4c8.8 3.3 17.9-.3 23.2-9.1l33.3-55.5c5.2-8.8 1.6-17.9-7.2-21L320 256z"/>
+                                </svg>
+                            </div>
+                            <h3>Masterstudium Maschinenbau <span class="arrow"></span></h3>
+                            <p class="date">2003 - 2012</p>
+                            <div class="timeline-item-content">
+                                <p class="institution">Universidad de los Andes, Bogotá, Colombia</p>
+                                <p>Especialidad: Logística y Control de Producción.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="graduation-cap-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.5 140.9 0 149.9 0 160c0 10.1 6.5 19.1 15.8 22.6L296.3 315.9c7.6 2.7 15.6 4.1 23.7 4.1s16.1-1.4 23.7-4.1L624.2 182.6c9.3-3.5 15.8-12.5 15.8-22.6c0-10.1-6.5-19.1-15.8-22.6L343.7 36.1C336.1 33.4 328.1 32 320 32zm0 128L555.2 233.9 320 326.1 84.8 233.9 320 160zm0 96L12.4 333.3c-8.8 3.3-12.4 12.4-7.2 21l33.3 55.5c5.2 8.8 14.3 12.4 23.2 9.1L320 384l258.3 97.4c8.8 3.3 17.9-.3 23.2-9.1l33.3-55.5c5.2-8.8 1.6-17.9-7.2-21L320 256z"/>
+                                </svg>
+                            </div>
+                            <h3>Matura (Bachillerato) <span class="arrow"></span></h3>
+                            <p class="date">2003</p>
+                            <div class="timeline-item-content">
+                                <p class="institution">Liceo Los Alpes, Cali, Colombia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="complementary-education">
+                <h2>Formación Complementaria</h2>
+                <div class="section-content-reveal reveal-on-scroll">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="open-book-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <path d="M320 0H256c-17.7 0-32 14.3-32 32V64H96C43 64 0 107 0 160V416c0 53 43 96 96 96H480c53 0 96-43 96-96V160c0-53-43-96-96-96H352V32c0-17.7-14.3-32-32-32zM256 160H96c-17.7 0-32 14.3-32 32V416c0 17.7 14.3 32 32 32H256V160zm32 0V448H480c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32H288z"/>
+                                </svg>
+                            </div>
                             <h3>Curso de Introducción a la IA <span class="arrow"></span></h3>
+                            <p class="date">22/05/2025</p>
                             <div class="timeline-item-content">
                                 <p class="institution">BIG school</p>
-                                <p class="date">22/05/2025</p>
                                 <p>Completó el curso online de introducción a la Inteligencia Artificial sobre ChatGPT, GPTs Personalizados y Make. Aprendió conceptos fundamentales de IA, la importancia de los prompts, la creación de GPTs personalizados y la automatización con Make para optimizar flujos de trabajo inteligentes.</p>
                                 <button class="document-btn" data-pdf-path="pdf/Certificado_IA_Mauricio_Mora.pdf" aria-label="Ver certificado de IA">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -776,52 +963,56 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="timeline-item"> 
-                            <h3>Produktions- und Technologiemanagement MSc <span class="arrow"></span></h3>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="open-book-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <path d="M320 0H256c-17.7 0-32 14.3-32 32V64H96C43 64 0 107 0 160V416c0 53 43 96 96 96H480c53 0 96-43 96-96V160c0-53-43-96-96-96H352V32c0-17.7-14.3-32-32-32zM256 160H96c-17.7 0-32 14.3-32 32V416c0 17.7 14.3 32 32 32H256V160zm32 0V448H480c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32H288z"/>
+                                </svg>
+                            </div>
+                            <h3>SCC Schulung (Safety Certificate for Contractors) <span class="arrow"></span></h3>
+                            <p class="date">2021</p>
                             <div class="timeline-item-content">
-                                <p class="institution">Zukunftsakademie Mostviertel und FH St. Pölten, Austria</p>
-                                <p class="date">09.2020 - 11.2023</p>
+                                <p class="institution">TU Wien Austria</p>
+                                <p>Duración: 16 horas.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <h3>Kälteanlagentechniker - Berufsausbildung <span class="arrow"></span></h3>
+                            <div class="timeline-icon">
+                                <svg class="open-book-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <path d="M320 0H256c-17.7 0-32 14.3-32 32V64H96C43 64 0 107 0 160V416c0 53 43 96 96 96H480c53 0 96-43 96-96V160c0-53-43-96-96-96H352V32c0-17.7-14.3-32-32-32zM256 160H96c-17.7 0-32 14.3-32 32V416c0 17.7 14.3 32 32 32H256V160zm32 0V448H480c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32H288z"/>
+                                </svg>
+                            </div>
+                            <h3>Universitätskurs Modern Management - Projektmanagement <span class="arrow"></span></h3>
+                            <p class="date">2016</p>
                             <div class="timeline-item-content">
-                                <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
-                                <p class="date">11.2017 - 04.2019</p>
+                                <p class="institution">Universität Graz, Austria</p>
+                                <p>Duración: 192 horas.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <h3>Elektrotechniker Berufsausbildung (Anlagen- und Betriebstechnik) <span class="arrow"></span></h3>
+                            <div class="timeline-icon">
+                                <svg class="open-book-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <path d="M320 0H256c-17.7 0-32 14.3-32 32V64H96C43 64 0 107 0 160V416c0 53 43 96 96 96H480c53 0 96-43 96-96V160c0-53-43-96-96-96H352V32c0-17.7-14.3-32-32-32zM256 160H96c-17.7 0-32 14.3-32 32V416c0 17.7 14.3 32 32 32H256V160zm32 0V448H480c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32H288z"/>
+                                </svg>
+                            </div>
+                            <h3>Lean-Manufacturing-Kurs <span class="arrow"></span></h3>
+                            <p class="date">2013</p>
                             <div class="timeline-item-content">
-                                <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
-                                <p class="date">11.2017 - 04.2019</p>
+                                <p class="institution">Brinks de Colombia, Bogotá, Colombia</p>
+                                <p>Duración: 50 horas.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <h3>Masterstudium Maschinenbau <span class="arrow"></span></h3>
-                            <div class="timeline-item-content">
-                                <p class="institution">Universidad de los Andes, Bogotá, Colombia</p>
-                                <p class="date">2003 - 2012</p>
-                                <p>Especialidad: Logística y Control de Producción.</p>
+                            <div class="timeline-icon">
+                                <svg class="open-book-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <path d="M320 0H256c-17.7 0-32 14.3-32 32V64H96C43 64 0 107 0 160V416c0 53 43 96 96 96H480c53 0 96-43 96-96V160c0-53-43-96-96-96H352V32c0-17.7-14.3-32-32-32zM256 160H96c-17.7 0-32 14.3-32 32V416c0 17.7 14.3 32 32 32H256V160zm32 0V448H480c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32H288z"/>
+                                </svg>
                             </div>
-                        </div>
-                        <div class="timeline-item">
-                            <h3>Matura (Bachillerato) <span class="arrow"></span></h3>
+                            <h3>Oracle Data Base Administrator Diplom <span class="arrow"></span></h3>
+                            <p class="date">2010</p>
                             <div class="timeline-item-content">
-                                <p class="institution">Liceo Los Alpes, Cali, Colombia</p>
-                                <p class="date">2003</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <h3>Weiterbildung (Formación Continua) <span class="arrow"></span></h3>
-                            <div class="timeline-item-content">
-                                <p class="institution">Varios cursos y certificaciones:</p>
-                                <ul>
-                                    <li>SCC Schulung (Safety Certificate for Contractors) (16h), TU Wien Austria (2021).</li>
-                                    <li>Universitätskurs Modern Management - Projektmanagement (192h), Universität Graz, Austria (2016).</li>
-                                    <li>Lean-Manufacturing-Kurs (50h), Brinks de Colombia, Bogotá, Colombia (2013).</li>
-                                    <li>Oracle Data Base Administrator Diplom (152h), Bogotá, Colombia (2010).</li>
-                                </ul>
+                                <p class="institution">Bogotá, Colombia</p>
+                                <p>Duración: 152 horas.</p>
                             </div>
                         </div>
                     </div>
