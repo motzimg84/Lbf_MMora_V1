@@ -363,14 +363,14 @@
             fill: currentColor; /* Usar el color del texto del botón para el icono */
         }
 
-        /* Estilos para el modal de mensaje (ya no se usa para PDFs, pero se mantiene por si acaso) */
+        /* Estilos para el modal de mensaje (ahora para PDF) */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo más oscuro para el PDF */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -385,11 +385,15 @@
         }
         .modal-content {
             background-color: var(--text-light);
-            padding: 30px;
+            padding: 20px; /* Reducir padding para maximizar espacio del PDF */
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
-            max-width: 500px;
-            text-align: center;
+            max-width: 90%; /* Más ancho para el PDF */
+            max-height: 90%; /* Más alto para el PDF */
+            width: 90%; /* Ancho fijo para el PDF */
+            height: 90%; /* Alto fijo para el PDF */
+            display: flex;
+            flex-direction: column;
             position: relative;
             transform: translateY(-20px);
             transition: transform 0.3s ease;
@@ -402,10 +406,12 @@
             margin-top: 0;
             margin-bottom: 15px;
             font-size: 1.4em;
+            text-align: center;
         }
         .modal-content p {
             margin-bottom: 20px;
             font-size: 1em;
+            text-align: center;
         }
         .modal-close-btn {
             background-color: var(--main-blue);
@@ -415,9 +421,18 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            align-self: flex-end; /* Alinea el botón a la derecha */
+            margin-top: 10px; /* Espacio superior */
         }
         .modal-close-btn:hover {
             background-color: var(--dark-blue);
+        }
+        /* Estilos para el iframe del PDF */
+        #pdfViewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+            flex-grow: 1; /* Permite que el iframe ocupe el espacio disponible */
         }
         
         /* Ocultar elementos en la impresión */
@@ -612,8 +627,8 @@
                         <div class="skill-category">
                             <h3>Software y Tecnologías</h3>
                             <div class="skill-item"><span class="skill-name">MS Office, Access y Project</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
-                            <div class="skill-item"><span class="skill-name">MS Visual Basic</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
                             <div class="skill-item"><span class="skill-name">SPS - Tia Portal</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
+                            <div class="skill-item"><span class="skill-name">MS Visual Basic</span> <span class="skill-level-text">(Nivel: 5/5)</span></div>
                             <div class="skill-item"><span class="skill-name">C, C++</span> <span class="skill-level-text">(Nivel: 4/5)</span></div>
                             <div class="skill-item"><span class="skill-name">HTML, Java, PHP</span> <span class="skill-level-text">(Nivel: 4/5)</span></div>
                             <div class="skill-item"><span class="skill-name">Oracle - MySQL</span> <span class="skill-level-text">(Nivel: 3/5)</span></div>
@@ -749,9 +764,22 @@
                 <div class="section-content-reveal reveal-on-scroll">
                     <div class="timeline">
                         <div class="timeline-item">
-                            <h3>Produktions- y Technologiemanagement MSc <span class="arrow"></span></h3>
+                            <h3>Curso de Introducción a la IA <span class="arrow"></span></h3>
                             <div class="timeline-item-content">
-                                <p class="institution">Zukunftsakademie Mostviertel y FH St. Pölten, Austria</p>
+                                <p class="institution">BIG school</p>
+                                <p class="date">22/05/2025</p>
+                                <p>Completó el curso online de introducción a la Inteligencia Artificial sobre ChatGPT, GPTs Personalizados y Make. Aprendió conceptos fundamentales de IA, la importancia de los prompts, la creación de GPTs personalizados y la automatización con Make para optimizar flujos de trabajo inteligentes.</p>
+                                <button class="document-btn" data-pdf-path="pdf/Certificado_IA_Mauricio_Mora.pdf" aria-label="Ver certificado de IA">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="timeline-item"> 
+                            <h3>Produktions- und Technologiemanagement MSc <span class="arrow"></span></h3>
+                            <div class="timeline-item-content">
+                                <p class="institution">Zukunftsakademie Mostviertel und FH St. Pölten, Austria</p>
                                 <p class="date">09.2020 - 11.2023</p>
                             </div>
                         </div>
@@ -763,7 +791,7 @@
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <h3>Elektrotechniker Berufsausbildung (Anlagen- y Betriebstechnik) <span class="arrow"></span></h3>
+                            <h3>Elektrotechniker Berufsausbildung (Anlagen- und Betriebstechnik) <span class="arrow"></span></h3>
                             <div class="timeline-item-content">
                                 <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
                                 <p class="date">11.2017 - 04.2019</p>
@@ -923,11 +951,10 @@
         </footer>
     </div>
 
-    <div id="messageModal" class="modal-overlay">
+    <div id="documentModal" class="modal-overlay">
         <div class="modal-content">
-            <h4>¡Atención!</h4>
-            <p id="modalMessage">Para ver el documento, el archivo PDF debe estar alojado en una ubicación web (por ejemplo, en un servidor o GitHub Pages) y no en una ruta local de tu computadora. Por favor, actualiza la ruta del PDF a una URL pública.</p>
-            <button class="modal-close-btn">Entendido</button>
+            <button class="modal-close-btn" aria-label="Cerrar documento">X</button>
+            <iframe id="pdfViewer" src="" frameborder="0"></iframe>
         </div>
     </div>
 
@@ -1088,20 +1115,32 @@
             }, 500); 
         });
 
-        // Modal Logic for PDF paths (now simplified as paths are assumed to be web accessible)
-        const messageModal = document.getElementById('messageModal');
-        const modalCloseBtn = messageModal.querySelector('.modal-close-btn');
-        const modalMessage = document.getElementById('modalMessage');
+        // Modal Logic for PDF viewer
+        const documentModal = document.getElementById('documentModal');
+        const pdfViewer = document.getElementById('pdfViewer');
+        const modalCloseBtn = documentModal.querySelector('.modal-close-btn');
 
         modalCloseBtn.addEventListener('click', () => {
-            messageModal.classList.remove('open');
+            documentModal.classList.remove('open');
+            pdfViewer.src = ''; // Clear the iframe src to stop PDF loading/memory usage
         });
 
+        // Add tooltips and modal functionality to document buttons
         document.querySelectorAll('.document-btn').forEach(button => {
+            const pdfPath = button.dataset.pdfPath;
+            // Extract filename from path and format it
+            let fileName = pdfPath.split('/').pop(); // Get the last part of the path
+            fileName = fileName.replace(/\.pdf$/i, ''); // Remove .pdf extension
+            fileName = fileName.replace(/_/g, ' '); // Replace underscores with spaces
+            fileName = fileName.replace(/-/g, ' '); // Replace hyphens with spaces
+            // Optional: Capitalize first letter of each word (simple approach)
+            fileName = fileName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
+            button.setAttribute('title', `Certificación - ${fileName}`);
+
             button.addEventListener('click', () => {
-                const pdfPath = button.dataset.pdfPath;
-                // Open the PDF in a new tab
-                window.open(pdfPath, '_blank');
+                pdfViewer.src = pdfPath; // Set the iframe src
+                documentModal.classList.add('open'); // Open the modal
             });
         });
     </script>
