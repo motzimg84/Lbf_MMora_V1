@@ -43,18 +43,20 @@
             margin: 0 auto;
             padding: 20px 0;
         }
+        /* Fixed action buttons container */
         .fixed-action-buttons {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 10px; /* Adjusted for mobile */
+            right: 10px; /* Adjusted for mobile */
             z-index: 1000;
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            flex-direction: row; /* Buttons side-by-side on mobile */
+            gap: 8px; /* Slightly smaller gap */
         }
+        /* Hexagon buttons */
         .hexagon-btn {
-            width: 55px;
-            height: 63.5px;
+            width: 45px; /* Smaller size for mobile */
+            height: 52px; /* Adjusted height to maintain aspect ratio */
             background-color: var(--light-grey-btn);
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             border: none;
@@ -69,9 +71,10 @@
             background-color: #cccccc;
             transform: scale(1.05);
         }
+        /* Icon sizes for buttons */
         .hexagon-btn svg, .hexagon-btn .icon-hamburger {
-            width: 28px;
-            height: 28px;
+            width: 24px; /* Smaller icon size for mobile */
+            height: 24px;
             fill: var(--icon-color-dark);
             color: var(--icon-color-dark);
             display: flex;
@@ -79,15 +82,22 @@
             justify-content: center;
             align-items: center;
         }
-        
         .icon-hamburger span {
             display: block;
-            width: 22px;
-            height: 3px;
+            width: 20px; /* Smaller hamburger lines */
+            height: 2px;
             background-color: var(--icon-color-dark);
             margin: 2px 0;
             transition: all 0.3s ease-in-out;
         }
+        
+        .icon-hamburger span:nth-child(1) {
+            transform-origin: top left;
+        }
+        .icon-hamburger span:nth-child(3) {
+            transform-origin: bottom left;
+        }
+
         #menu-toggle-btn.open .icon-hamburger span:nth-child(1) {
             transform: translateY(5px) rotate(45deg);
         }
@@ -109,18 +119,25 @@
         #back-to-top-btn svg {
             transform: rotate(-90deg); /* Flecha apuntando hacia arriba */
         }
+
+        /* Sticky Navigation Menu */
         .sticky-nav {
+            position: absolute; /* Positioned relative to .fixed-action-buttons */
+            top: calc(100% + 5px); /* Position below the buttons with a small gap */
+            right: 0; /* Aligned to the right edge of the fixed-action-buttons container */
             background-color: rgba(10, 37, 64, 0.95);
             backdrop-filter: blur(8px);
             border-radius: var(--border-radius);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            max-height: 0;
+            max-height: 0; /* Hidden by default */
             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
             padding: 0 15px;
+            width: 180px; /* Default width for the menu on mobile */
         }
+
         .sticky-nav.open {
-            max-height: 500px;
+            max-height: 500px; /* Sufficient height to show all links */
             padding: 15px;
         }
         .sticky-nav ul { list-style: none; margin: 0; padding: 0; }
@@ -137,6 +154,42 @@
         }
         .sticky-nav a:hover { color: var(--main-blue); transform: translateX(3px); }
         .sticky-nav a.active-link { color: var(--main-blue); font-weight: bold; }
+
+        /* Desktop specific styles */
+        @media (min-width: 768px) {
+            .fixed-action-buttons {
+                top: 20px; /* Original top margin for desktop */
+                right: 20px; /* Original right margin for desktop */
+                flex-direction: column; /* Stack buttons vertically on desktop */
+                gap: 10px; /* Original gap */
+            }
+            .hexagon-btn {
+                width: 55px; /* Original size for desktop */
+                height: 63.5px;
+            }
+            .hexagon-btn svg, .hexagon-btn .icon-hamburger {
+                width: 28px; /* Original icon size */
+                height: 28px;
+            }
+            .icon-hamburger span {
+                width: 22px; /* Original hamburger lines */
+                height: 3px;
+                margin: 2px 0;
+            }
+            .sticky-nav {
+                position: relative; /* Relative to its parent (fixed-action-buttons) */
+                top: auto; /* Reset top positioning */
+                right: auto; /* Reset right positioning */
+                margin-top: 10px; /* Space from buttons */
+                align-self: flex-end; /* Align to the right of the column */
+                width: 180px; /* Consistent width for desktop */
+            }
+            .sticky-nav.open {
+                max-height: 500px;
+                padding: 15px;
+            }
+        }
+
         header {
             background-color: var(--header-bg);
             color: var(--text-light);
@@ -291,17 +344,12 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* Styling for the circular arrow icon */
-        .timeline-item .circular-arrow-icon {
-            width: 30px; /* Size of the SVG arrow */
-            height: 30px;
-            fill: var(--dark-blue); /* Color of the arrow */
-            animation: rotateArrow 4s linear infinite; /* Animation for rotation */
-        }
-
-        @keyframes rotateArrow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        /* Styling for the new image icon */
+        .timeline-icon-img {
+            width: 50px; /* Size of the image */
+            height: 50px;
+            object-fit: contain; /* Ensures the image fits within the bounds without distortion */
+            vertical-align: middle; /* Align image nicely */
         }
 
         /* Specific icons for Education sections */
@@ -647,7 +695,9 @@
     <header id="home">
         <div class="hexagon-bg" id="hexagon-container"></div>
         <div class="header-inner-content">
-            <img src="Img/Bild Mauricio Mora.jpg" alt="Foto de Perfil Mauricio Mora" class="profile-photo">
+            <!-- La ruta de la imagen de perfil ha sido actualizada a la proporcionada por el usuario. -->
+            <!-- Si esta imagen no se carga, asegúrate de que 'Img/Bild Mauricio Mora.jpg' sea una URL accesible públicamente. -->
+            <img src="Img/Bild Mauricio Mora.jpg" alt="Foto de Perfil Mauricio Mora" class="profile-photo" onerror="this.onerror=null; this.src='https://placehold.co/150x150/a3a3a3/ffffff?text=MM'; this.alt='Foto de perfil no disponible';">
             <h1>Ing. Mauricio Mora, MSc.</h1>
             <p class="title">Especialista en Automatización y Gestión de Proyectos</p>
             <p class="header-description">
@@ -691,7 +741,6 @@
                         <div class="skill-category">
                             <h3>Certificados y Otros</h3>
                             <div class="skill-item"><span class="skill-name">Permisos de Conducir: A y B</span></div>
-                            <div class="skill-item"><span class="skill-name">SCC Schulung (Safety Certificate for Contractors)</span></div>
                         </div>
                     </div>
                 </div>
@@ -702,9 +751,9 @@
                     <div class="timeline">
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                <svg class="circular-arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M463.5 224H424V144c0-22.1-17.9-40-40-40H272c-22.1 0-40 17.9-40 40v80H144c-17.7 0-32 14.3-32 32s14.3 32 32 32h88v80c0 22.1 17.9 40 40 40h112c22.1 0 40-17.9 40-40v-80h39.5c17.7 0 32-14.3 32-32s-14.3-32-32-32zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208s-93.3 208-208 208z"/>
-                                </svg>
+                                <!-- La ruta de la imagen de engranaje ha sido actualizada a la proporcionada por el usuario. -->
+                                <!-- Si esta imagen no se carga, asegúrate de que 'sim/Engranaje.png' sea una URL accesible públicamente. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
                             <h3>EMSR-Techniker <span class="arrow"></span></h3>
                             <p class="date">05.2024 - 11.2024</p>
@@ -720,9 +769,9 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                <svg class="circular-arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M463.5 224H424V144c0-22.1-17.9-40-40-40H272c-22.1 0-40 17.9-40 40v80H144c-17.7 0-32 14.3-32 32s14.3 32 32 32h88v80c0 22.1 17.9 40 40 40h112c22.1 0 40-17.9 40-40v-80h39.5c17.7 0 32-14.3 32-32s-14.3-32-32-32zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208s-93.3 208-208 208z"/>
-                                </svg>
+                                <!-- La ruta de la imagen de engranaje ha sido actualizada a la proporcionada por el usuario. -->
+                                <!-- Si esta imagen no se carga, asegúrate de que 'sim/Engranaje.png' sea una URL accesible públicamente. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
                             <h3>Projektmanagement in Automatisierung y Softwareentwicklung <span class="arrow"></span></h3>
                             <p class="date">08.2021 - 03.2024</p>
@@ -738,9 +787,9 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                <svg class="circular-arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M463.5 224H424V144c0-22.1-17.9-40-40-40H272c-22.1 0-40 17.9-40 40v80H144c-17.7 0-32 14.3-32 32s14.3 32 32 32h88v80c0 22.1 17.9 40 40 40h112c22.1 0 40-17.9 40-40v-80h39.5c17.7 0 32-14.3 32-32s-14.3-32-32-32zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208s-93.3 208-208 208z"/>
-                                </svg>
+                                <!-- La ruta de la imagen de engranaje ha sido actualizada a la proporcionada por el usuario. -->
+                                <!-- Si esta imagen no se carga, asegúrate de que 'sim/Engranaje.png' sea una URL accesible públicamente. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
                             <h3>Automatisierungstechniken y Projektleiter <span class="arrow"></span></h3>
                             <p class="date">06.2019 - 07.2021</p>
@@ -756,9 +805,9 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                <svg class="circular-arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M463.5 224H424V144c0-22.1-17.9-40-40-40H272c-22.1 0-40 17.9-40 40v80H144c-17.7 0-32 14.3-32 32s14.3 32 32 32h88v80c0 22.1 17.9 40 40 40h112c22.1 0 40-17.9 40-40v-80h39.5c17.7 0 32-14.3 32-32s-14.3-32-32-32zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208s-93.3 208-208 208z"/>
-                                </svg>
+                                <!-- La ruta de la imagen de engranaje ha sido actualizada a la proporcionada por el usuario. -->
+                                <!-- Si esta imagen no se carga, asegúrate de que 'sim/Engranaje.png' sea una URL accesible públicamente. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
                             <h3>Promotionstätigkeiten <span class="arrow"></span></h3>
                             <p class="date">01.2015 - 05.2019</p>
@@ -768,9 +817,9 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                <svg class="circular-arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M463.5 224H424V144c0-22.1-17.9-40-40-40H272c-22.1 0-40 17.9-40 40v80H144c-17.7 0-32 14.3-32 32s14.3 32 32 32h88v80c0 22.1 17.9 40 40 40h112c22.1 0 40-17.9 40-40v-80h39.5c17.7 0 32-14.3 32-32s-14.3-32-32-32zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208s-93.3 208-208 208z"/>
-                                </svg>
+                                <!-- La ruta de la imagen de engranaje ha sido actualizada a la proporcionada por el usuario. -->
+                                <!-- Si esta imagen no se carga, asegúrate de que 'sim/Engranaje.png' sea una URL accesible públicamente. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
                             <h3>Kälteanlagentechniker (Prácticas) <span class="arrow"></span></h3>
                             <p class="date">02.2019 - 02.2019</p>
@@ -780,9 +829,9 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                <svg class="circular-arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M463.5 224H424V144c0-22.1-17.9-40-40-40H272c-22.1 0-40 17.9-40 40v80H144c-17.7 0-32 14.3-32 32s14.3 32 32 32h88v80c0 22.1 17.9 40 40 40h112c22.1 0 40-17.9 40-40v-80h39.5c17.7 0 32-14.3 32-32s-14.3-32-32-32zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208s-93.3 208-208 208z"/>
-                                </svg>
+                                <!-- La ruta de la imagen de engranaje ha sido actualizada a la proporcionada por el usuario. -->
+                                <!-- Si esta imagen no se carga, asegúrate de que 'sim/Engranaje.png' sea una URL accesible públicamente. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
                             <h3>Hilfsmitarbeiter con Logistik-Tätigkeiten <span class="arrow"></span></h3>
                             <p class="date">04.2016 - 01.2017</p>
@@ -792,9 +841,9 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                <svg class="circular-arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M463.5 224H424V144c0-22.1-17.9-40-40-40H272c-22.1 0-40 17.9-40 40v80H144c-17.7 0-32 14.3-32 32s14.3 32 32 32h88v80c0 22.1 17.9 40 40 40h112c22.1 0 40-17.9 40-40v-80h39.5c17.7 0 32-14.3 32-32s-14.3-32-32-32zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208s-93.3 208-208 208z"/>
-                                </svg>
+                                <!-- La ruta de la imagen de engranaje ha sido actualizada a la proporcionada por el usuario. -->
+                                <!-- Si esta imagen no se carga, asegúrate de que 'sim/Engranaje.png' sea una URL accesible públicamente. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
                             <h3>Sales Assistent-Manager <span class="arrow"></span></h3>
                             <p class="date">04.2015 - 11.2015</p>
@@ -807,9 +856,9 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                <svg class="circular-arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M463.5 224H424V144c0-22.1-17.9-40-40-40H272c-22.1 0-40 17.9-40 40v80H144c-17.7 0-32 14.3-32 32s14.3 32 32 32h88v80c0 22.1 17.9 40 40 40h112c22.1 0 40-17.9 40-40v-80h39.5c17.7 0 32-14.3 32-32s-14.3-32-32-32zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208s-93.3 208-208 208z"/>
-                                </svg>
+                                <!-- La ruta de la imagen de engranaje ha sido actualizada a la proporcionada por el usuario. -->
+                                <!-- Si esta imagen no se carga, asegúrate de que 'sim/Engranaje.png' sea una URL accesible públicamente. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
                             <h3>IT & Logistik Manager <span class="arrow"></span></h3>
                             <p class="date">2008 - 2010</p>
@@ -849,7 +898,7 @@
                                 </button>
                                 <p><strong>Masterarbeit:</strong></p>
                                 <p>
-                                    Mi tesis de maestría, "Empirische Bewertung der Vorteile von MUL (Maßeinheitenumwandlung und Lineal) bei la Umrechnung von Maßeinheiten: Ein Vergleich mit la traditionellen Methode", evaluó empíricamente los beneficios de un método alternativo (MUL) <span style="font-weight: bold;">desarrollado por mí</span> para la conversión de unidades de medida, en comparación con el enfoque tradicional. A través de un análisis detallado, la investigación arrojó luz sobre la eficacia de este nuevo método en el aprendizaje y la aplicación práctica, ofreciendo una perspectiva valiosa para la didáctica de las ciencias y la ingeniería.
+                                    Mi tesis de maestría, "Empirische Bewertung der Vorteile von MUL (Maßeinheitenumwandlung und Lineal) bei la Umrechnung von Maßeinheiten: Ein Vergleich con la tradiciónen Methode", evaluó empíricamente los beneficios de un método alternativo (MUL) <span style="font-weight: bold;">desarrollado por mí</span> para la conversión de unidades de medida, en comparación con el enfoque tradicional. A través de un análisis detallado, la investigación arrojó luz sobre la eficacia de este nuevo método en el aprendizaje y la aplicación práctica, ofreciendo una perspectiva valiosa para la didáctica de las ciencias y la ingeniería.
                                 </p>
                                 <button class="document-btn" data-pdf-path="pdf/20230824_Masterthesis_PTM_Mauricio_Mora.pdf" aria-label="Ver Masterarbeit">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1181,25 +1230,7 @@
         });
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
-        // Profile photo error handling
-        const profilePhoto = document.querySelector('.profile-photo');
-        profilePhoto.onerror = function() {
-            profilePhoto.alt = "MM";
-            const initialsDiv = document.createElement('div');
-            initialsDiv.textContent = 'MM';
-            initialsDiv.style.width = profilePhoto.width + 'px';
-            initialsDiv.style.height = profilePhoto.height + 'px';
-            initialsDiv.style.borderRadius = '50%';
-            initialsDiv.style.border = '5px solid var(--main-blue)';
-            initialsDiv.style.display = 'flex';
-            initialsDiv.style.alignItems = 'center';
-            initialsDiv.style.justifyContent = 'center';
-            initialsDiv.style.backgroundColor = 'var(--grey-background)';
-            initialsDiv.style.color = 'var(--dark-blue)';
-            initialsDiv.style.fontSize = Math.min(profilePhoto.width, profilePhoto.height) / 3 + 'px';
-            initialsDiv.style.margin = profilePhoto.style.margin;
-            profilePhoto.parentNode.replaceChild(initialsDiv, profilePhoto);
-        };
+        // Profile photo error handling (Removed JavaScript logic, now handled directly in HTML img tag for consistency)
         
         // Reveal on Scroll & Active Link
         // Ahora seleccionamos los nuevos divs .section-content-reveal para la animación
@@ -1290,9 +1321,9 @@
             const pdfPath = button.dataset.pdfPath;
             // Extract filename from path and format it
             let fileName = pdfPath.split('/').pop(); // Get the last part of the path
-            fileName = fileName.replace(/\.pdf$/i, ''); // Remove .pdf extension
-            fileName = fileName.replace(/_/g, ' '); // Replace underscores with spaces
-            fileName = fileName.replace(/-/g, ' '); // Replace hyphens with spaces
+            fileName = fileName.replace(/\.pdf$/i, '', fileName); // Remove .pdf extension
+            fileName = fileName.replace(/_/g, ' ', fileName); // Replace underscores with spaces
+            fileName = fileName.replace(/-/g, ' ', fileName); // Replace hyphens with spaces
             // Optional: Capitalize first letter of each word (simple approach)
             fileName = fileName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
