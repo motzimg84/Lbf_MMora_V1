@@ -53,6 +53,14 @@
             flex-direction: row; /* Buttons side-by-side on mobile */
             gap: 8px; /* Slightly smaller gap */
         }
+        /* Wrapper for buttons that contain dropdowns or are standalone */
+        .button-with-dropdown-wrapper,
+        .button-wrapper {
+            display: flex;
+            flex-direction: column; /* Stack button and its dropdown vertically */
+            align-items: flex-end; /* Align content (button and dropdown) to the right within the wrapper */
+        }
+
         /* Hexagon buttons */
         .hexagon-btn {
             width: 45px; /* Smaller size for mobile */
@@ -122,9 +130,6 @@
 
         /* Sticky Navigation Menu */
         .sticky-nav {
-            position: absolute; /* Positioned relative to .fixed-action-buttons */
-            top: calc(100% + 5px); /* Position below the buttons with a small gap */
-            right: 0; /* Aligned to the right edge of the fixed-action-buttons container */
             background-color: rgba(10, 37, 64, 0.95);
             backdrop-filter: blur(8px);
             border-radius: var(--border-radius);
@@ -133,7 +138,9 @@
             max-height: 0; /* Hidden by default */
             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
             padding: 0 15px;
-            width: 180px; /* Default width for the menu on mobile */
+            width: 180px; /* Default width for the menu */
+            margin-top: 5px; /* Small gap between button and dropdown */
+            box-sizing: border-box; /* Ensure padding doesn't affect width calculations */
         }
 
         .sticky-nav.open {
@@ -154,6 +161,53 @@
         }
         .sticky-nav a:hover { color: var(--main-blue); transform: translateX(3px); }
         .sticky-nav a.active-link { color: var(--main-blue); font-weight: bold; }
+
+        /* Language Switcher Specific Styles */
+        .language-dropdown-menu {
+            background-color: rgba(10, 37, 64, 0.95);
+            backdrop-filter: blur(8px);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            max-height: 0; /* Hidden by default */
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 15px;
+            width: 180px; /* Consistent width */
+            margin-top: 5px; /* Small gap between button and dropdown */
+            box-sizing: border-box; /* Ensure padding doesn't affect width calculations */
+        }
+
+        .language-dropdown-menu.open {
+            max-height: 200px; /* Sufficient height for language list */
+            padding: 15px;
+        }
+
+        .language-dropdown-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .language-dropdown-menu li {
+            color: var(--text-light);
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-dropdown-menu li:last-child {
+            margin-bottom: 0;
+        }
+
+        .language-dropdown-menu li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--main-blue);
+        }
 
         /* Desktop specific styles */
         @media (min-width: 768px) {
@@ -176,17 +230,14 @@
                 height: 3px;
                 margin: 2px 0;
             }
-            .sticky-nav {
-                position: relative; /* Relative to its parent (fixed-action-buttons) */
-                top: auto; /* Reset top positioning */
-                right: auto; /* Reset right positioning */
-                margin-top: 10px; /* Space from buttons */
-                align-self: flex-end; /* Align to the right of the column */
-                width: 180px; /* Consistent width for desktop */
+            /* Align wrappers to the right in column layout */
+            .button-with-dropdown-wrapper,
+            .button-wrapper {
+                align-self: flex-end; /* Align to the right in column layout */
             }
-            .sticky-nav.open {
-                max-height: 500px;
-                padding: 15px;
+            .sticky-nav,
+            .language-dropdown-menu {
+                margin-top: 10px; /* Adjust gap for desktop */
             }
         }
 
@@ -383,6 +434,17 @@
             max-height: 1000px; /* Increased max-height for detailed content */
             padding: 0 0 20px 0;
         }
+
+        /* NEW: Styles for justified text and paragraph separation in timeline content */
+        .timeline-item-content p {
+            text-align: justify; /* Justify text for block format */
+            margin-bottom: 1em; /* Add spacing between paragraphs */
+        }
+        .timeline-item-content p:last-child {
+            margin-bottom: 0; /* No extra margin after the last paragraph */
+        }
+
+
         /* Styles for the + / - symbol in project-card */
         .project-card {
             margin-bottom: 20px; /* Added space between projects */
@@ -661,30 +723,47 @@
 </head>
 <body>
     <div class="fixed-action-buttons">
-        <button id="menu-toggle-btn" class="hexagon-btn" aria-label="Alternar Menú" aria-expanded="false">
-            <div class="icon-hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+        <div class="button-with-dropdown-wrapper">
+            <button id="menu-toggle-btn" class="hexagon-btn" aria-label="Alternar menú" aria-expanded="false">
+                <div class="icon-hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <nav class="sticky-nav">
+                <ul>
+                    <li><a href="#home" class="nav-link">Inicio</a></li>
+                    <li><a href="#about" class="nav-link">Acerca de Mí</a></li>
+                    <li><a href="#skills" class="nav-link">Conocimientos</a></li>
+                    <li><a href="#experience" class="nav-link">Experiencia</a></li>
+                    <li><a href="#education" class="nav-link">Formación</a></li>
+                    <li><a href="#complementary-education" class="nav-link">Formación Complementaria</a></li>
+                    <li><a href="#projects" class="nav-link">Proyectos</a></li>
+                    <li><a href="#contact" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- New Language Switcher Container -->
+        <div class="button-with-dropdown-wrapper">
+            <button id="language-toggle-btn" class="hexagon-btn" aria-label="Cambiar idioma">
+                <span id="current-flag">🇪🇸</span>
+            </button>
+            <div class="language-dropdown-menu">
+                <!-- Language options will be dynamically inserted here by JavaScript -->
+                <ul id="language-options-list"></ul>
             </div>
-        </button>
-        <nav class="sticky-nav">
-            <ul>
-                <li><a href="#home" class="nav-link">Inicio</a></li>
-                <li><a href="#about" class="nav-link">Acerca de Mí</a></li>
-                <li><a href="#skills" class="nav-link">Conocimientos</a></li>
-                <li><a href="#experience" class="nav-link">Experiencia</a></li>
-                <li><a href="#education" class="nav-link">Formación</a></li>
-                <li><a href="#complementary-education" class="nav-link">Formación Complementaria</a></li>
-                <li><a href="#projects" class="nav-link">Proyectos</a></li>
-                <li><a href="#contact" class="nav-link">Contacto</a></li>
-            </ul>
-        </nav>
-        <button id="print-btn" class="hexagon-btn" aria-label="Imprimir CV">
-            <svg viewBox="0 0 576 512" fill="currentColor">
-                <path d="M576 288c0-35.3-28.7-64-64-64h-96V64c0-35.3-28.7-64-64-64H192c-35.3 0-64 28.7-64 64v160H32c-35.3 0-64 28.7-64 64v112c0 44.2 35.8 80 80 80h416c44.2 0 80-35.8 80-80V288zM480 288a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM192 192v-64h192v64H192zm288 192a16 16 0 1 0 0-32 16 16 0 1 0 0 32z"/>
-            </svg>
-        </button>
+        </div>
+        <!-- End Language Switcher Container -->
+
+        <div class="button-wrapper">
+            <button id="print-btn" class="hexagon-btn" aria-label="Imprimir CV">
+                <svg viewBox="0 0 576 512" fill="currentColor">
+                    <path d="M576 288c0-35.3-28.7-64-64-64h-96V64c0-35.3-28.7-64-64-64H192c-35.3 0-64 28.7-64 64v160H32c-35.3 0-64 28.7-64 64v112c0 44.2 35.8 80 80 80h416c44.2 0 80-35.8 80-80V288zM480 288a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM192 192v-64h192v64H192zm288 192a16 16 0 1 0 0-32 16 16 0 1 0 0 32z"/>
+                </svg>
+            </button>
+        </div>
     </div>
     <button id="back-to-top-btn" class="hexagon-btn" aria-label="Volver arriba">
         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -695,8 +774,8 @@
     <header id="home">
         <div class="hexagon-bg" id="hexagon-container"></div>
         <div class="header-inner-content">
-            <!-- The profile image path has been updated to the one provided by the user. -->
-            <!-- If this image does not load, please ensure that 'Img/Bild Mauricio Mora.jpg' is a publicly accessible URL. -->
+            <!-- Das Profilbild wurde auf den vom Benutzer bereitgestellten Pfad aktualisiert. -->
+            <!-- Falls dieses Bild nicht geladen wird, stellen Sie bitte sicher, dass 'Img/Bild Mauricio Mora.jpg' eine öffentlich zugängliche URL ist. -->
             <img src="Img/Bild Mauricio Mora.jpg" alt="Foto de Perfil Mauricio Mora" class="profile-photo" onerror="this.onerror=null; this.src='https://placehold.co/150x150/a3a3a3/ffffff?text=MM'; this.alt='Foto de perfil no disponible';">
             <h1>Ing. Mauricio Mora, MSc.</h1>
             <p class="title">Especialista en Automatización y Gestión de Proyectos</p>
@@ -805,7 +884,7 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                               <!-- The gear image path has been updated to the one provided by the user. -->
+                                <!-- The gear image path has been updated to the one provided by the user. -->
                                 <!-- If this image does not load, please ensure that 'sim/Engranaje.png' is a publicly accessible URL. -->
                                 <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
@@ -860,6 +939,45 @@
                                 <!-- If this image does not load, please ensure that 'sim/Engranaje.png' is a publicly accessible URL. -->
                                 <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
                             </div>
+                            <h3>Administrador del parque automotor <span class="arrow"></span></h3>
+                            <p class="date">07.2012 - 01.2013</p>
+                            <div class="timeline-item-content">
+                                <p class="company">SERVICIO GEOLÓGICO COLOMBIANO (INGEOMINAS), Bogotá, Colombia</p>
+                                <p>Mi rol principal era asegurar el correcto funcionamiento de toda la flota de vehículos que brindaba transporte entre las distintas instalaciones de la entidad, para actividades dentro de la ciudad y para investigaciones y emergencias a nivel nacional. Durante este tiempo, logré desarrollar programas en Visual Basic para controlar los gastos de los vehículos, tanto en mecánica como en combustible, lo que resultó en un ahorro del 20%. Además, fui responsable de desarrollar y supervisar el proceso de compra de vehículos, adquiriendo con éxito cuatro camionetas que cumplían con las condiciones adecuadas para los servicios que realizamos, y establecí los modelos de contrato para futuras adquisiciones de vehículos aptos para la entidad.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <!-- The gear image path has been updated to the one provided by the user. -->
+                                <!-- If this image does not load, please ensure that 'sim/Engranaje.png' is a publicly accessible URL. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
+                            </div>
+                            <h3>Administrador de proyectos <span class="arrow"></span></h3>
+                            <p class="date">03.2011 - 12.2011</p>
+                            <div class="timeline-item-content">
+                                <p class="company">FACTS S.A.S, Colombia</p>
+                                <p>Mi principal tarea consistía en desarrollar tableros utilizando Xcelsius. En este periodo, logré desarrollar un nuevo sistema de tableros multicapas que optimizó la visualización de datos. También fui pionero en la creación de tableros que podían cargar información directamente desde archivos de texto (.txt), lo que les otorgaba la flexibilidad de trabajar con cualquier base de datos. Para complementar esto, también realicé reportes en bases de datos Oracle, extrayendo la información en formato .txt para su posterior vinculación con los tableros.</p>
+                            </div>
+                        </div>
+                         <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <!-- The gear image path has been updated to the one provided by the user. -->
+                                <!-- If this image does not load, please ensure that 'sim/Engranaje.png' is a publicly accessible URL. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
+                            </div>
+                            <h3>Administrador de proyectos <span class="arrow"></span></h3>
+                            <p class="date">05.2010 - 05.2011</p>
+                            <div class="timeline-item-content">
+                                <p class="company">QP Consultores, Colombia</p>
+                                <p>Mi responsabilidad era desarrollar tableros y reportes para la infraestructura de Business Intelligence, mostrando informes financieros, logísticos y de inventarios, entre otros. Durante mi tiempo allí, conseguí mejorar significativamente los tiempos de entrega, cumpliendo con las fechas pactadas y, por ende, elevando el nivel de cumplimiento de la compañía. Asimismo, desarrollé nuevos sistemas de tableros y reportes que hicieron la consulta de información mucho más dinámica. Un logro clave fue que, al realizar la concatenación de información dentro de las bases de datos Oracle, logré reducir considerablemente los tiempos de procesamiento de los tableros.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <!-- The gear image path has been updated to the one provided by the user. -->
+                                <!-- If this image does not load, please ensure that 'sim/Engranaje.png' is a publicly accessible URL. -->
+                                <img src="sim/Engranaje.png" alt="Engranaje" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=⚙'; this.alt='Engranaje';">
+                            </div>
                             <h3>IT & Logistik Manager <span class="arrow"></span></h3>
                             <p class="date">2008 - 2010</p>
                             <div class="timeline-item-content">
@@ -878,16 +996,20 @@
                     <div class="timeline">
                         <div class="timeline-item"> 
                             <div class="timeline-icon">
-                                <!-- SVG has been changed to the mortarboard image as requested. -->
+                                <!-- SVG wurde auf das gewünschte Doktorhut-Bild geändert. -->
                                 <img src="sim/Birrete.png" alt="Birrete" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=🎓'; this.alt='Birrete';">
                             </div>
-                            <h3>Produktions- und Technologiemanagement MSc <span class="arrow"></span></h3>
+                            <h3>Produktions- y Technologiemanagement MSc <span class="arrow"></span></h3>
                             <p class="date">09.2020 - 11.2023</p>
                             <div class="timeline-item-content">
-                                <p class="institution">Zukunftsakademie Mostviertel und FH St. Pölten, Austria</p>
+                                <p class="institution">Zukunftsakademie Mostviertel y FH St. Pölten, Austria</p>
                                 <p>
                                     El programa de Máster "Gestión de Producción y Tecnología (MSc)" capacita a los graduados para diseñar procesos de producción de manera eficiente e implementar innovaciones tecnológicas en la industria. Un tema central del estudio es la gestión de proyectos, que permite a los estudiantes planificar y controlar eficazmente proyectos complejos en el sector de la producción y la tecnología. Aprenden técnicas para la estructuración de proyectos, la planificación de recursos y tiempos, así como la gestión de riesgos, para implementar con éxito proyectos dinámicos y técnicamente exigentes.
+                                </p>
+                                <p>
                                     Además, el programa pone un fuerte énfasis en los métodos de Lean Manufacturing, que tienen como objetivo maximizar la eficiencia y la calidad en la producción. Conceptos como el Sistema de Producción Toyota, Kaizen y Six Sigma son componentes importantes del plan de estudios. Estos métodos sirven para minimizar el desperdicio y aumentar la productividad, fomentando mejoras continuas en los procesos de producción. Los estudiantes aprenden a analizar sistemáticamente las cadenas de valor y a desarrollar estrategias de mejora sostenibles que garantizan alta calidad y bajos costos.
+                                </p>
+                                <p>
                                     El programa prepara a los graduados para puestos de liderazgo en empresas de producción y tecnología. A través de la interacción de la gestión de proyectos y el Lean Manufacturing, desarrollan una comprensión profunda de los enfoques de gestión modernos que son demandados en una industria digitalizada y globalizada. Los graduados están perfectamente cualificados para integrar los avances tecnológicos de manera específica en los procesos de producción y crear ventajas competitivas. El Máster "Gestión de Producción y Tecnología" ofrece así una formación práctica y orientada al futuro, que se basa en los requisitos de una industria en constante evolución y tiene como objetivo enfrentar los desafíos de la producción moderna con soluciones innovadoras y sostenibles.
                                 </p>
                                 <button class="document-btn" data-pdf-path="pdf/MSc_PTM_Mauricio_Mora.pdf" aria-label="Ver descripción del Master">
@@ -908,7 +1030,7 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                  <!-- SVG has been changed to the mortarboard image as requested. -->
+                                  <!-- SVG wurde auf das gewünschte Doktorhut-Bild geändert. -->
                                 <img src="sim/Birrete.png" alt="Birrete" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=🎓'; this.alt='Birrete';">
                             </div>
                             <h3>Kälteanlagentechniker - Berufsausbildung <span class="arrow"></span></h3>
@@ -916,7 +1038,7 @@
                             <div class="timeline-item-content">
                                 <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
                                 <p>Durante esta capacitación intensiva adquirí una sólida base en el montaje, puesta en marcha y mantenimiento de sistemas de refrigeración y climatización, integrando conocimientos fundamentales de electrotecnia industrial. Me formé en la instalación eléctrica de plantas de frío y bombas de calor, incluyendo el tendido de tuberías, conexiones, comprobación de estanqueidad y control de fugas, siguiendo las normativas de seguridad y protección ambiental. Asimismo, desarrollé competencias en el diseño y diagnóstico de circuitos eléctricos y sistemas de control (PLC), incluyendo técnicas de medición y regulación específicas del ciclo de refrigeración. Complementé mi perfil con habilidades prácticas en metalurgia —como torneado, fresado, soldadura y montaje de cuadros eléctricos— y aplicación de sistemas neumáticos o electro-neumáticos. La formación me preparó para enfrentar con éxito la examen final (“Lehrabschlussprüfung”) en el módulo de Electrotecnia y en la especialidad de Refrigeración, posicionándome como técnico capacitado en la operación, mantenimiento y optimización de plantas frigoríficas e instalaciones de climatización en entornos industriales y comerciales.</p>
-                                <button class="document-btn" data-pdf-path="pdf\Lehrabschlus_Kaelteanlagentechniker_Mauricio_Mora.pdf" aria-label="Ver documento del Elektrotechniker Berufsausbildung">
+                                <button class="document-btn" data-pdf-path="pdf/Lehrabschlus_Kaelteanlagentechniker_Mauricio_Mora.pdf" aria-label="Ver documento del Elektrotechniker Berufsausbildung">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
                                     </svg>
@@ -925,10 +1047,10 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                  <!-- SVG has been changed to the mortarboard image as requested. -->
+                                  <!-- SVG wurde auf das gewünschte Doktorhut-Bild geändert. -->
                                 <img src="sim/Birrete.png" alt="Birrete" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=🎓'; this.alt='Birrete';">
                             </div>
-                            <h3>Elektrotechniker Berufsausbildung (Anlagen- und Betriebstechnik) <span class="arrow"></span></h3>
+                            <h3>Elektrotechniker Berufsausbildung (Anlagen- y Betriebstechnik) <span class="arrow"></span></h3>
                             <p class="date">11.2017 - 04.2019</p>
                             <div class="timeline-item-content">
                                 <p class="institution">Berufsförderungsinstitut (BFI), Viena, Austria</p>
@@ -942,7 +1064,7 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                  <!-- SVG has been changed to the mortarboard image as requested. -->
+                                  <!-- SVG wurde auf das gewünschte Doktorhut-Bild geändert. -->
                                 <img src="sim/Birrete.png" alt="Birrete" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=🎓'; this.alt='Birrete';">
                             </div>
                             <h3>Masterstudium Maschinenbau <span class="arrow"></span></h3>
@@ -960,8 +1082,8 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                  <!-- SVG has been changed to the mortarboard image as requested. -->
-                                <img src="sim/Birrete.png" alt="Birrete" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=?'; this.alt='Birrete';">
+                                  <!-- SVG wurde auf das gewünschte Doktorhut-Bild geändert. -->
+                                <img src="sim/Birrete.png" alt="Birrete" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=🎓'; this.alt='Birrete';">
                             </div>
                             <h3>Matura (Bachillerato) <span class="arrow"></span></h3>
                             <p class="date">2003</p>
@@ -978,7 +1100,7 @@
                     <div class="timeline">
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                <!-- SVG has been changed to the book image as requested. -->
+                                <!-- SVG wurde auf das gewünschte Buch-Bild geändert. -->
                                 <img src="sim/Buch.png" alt="Libro" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=📖'; this.alt='Libro';">
                             </div>
                             <h3>Curso de Introducción a la IA <span class="arrow"></span></h3>
@@ -995,7 +1117,7 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                 <!-- SVG has been changed to the book image as requested. -->
+                                 <!-- SVG wurde auf das gewünschte Buch-Bild geändert. -->
                                 <img src="sim/Buch.png" alt="Libro" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=📖'; this.alt='Libro';">
                             </div>
                             <h3>SCC Schulung (Safety Certificate for Contractors) <span class="arrow"></span></h3>
@@ -1007,7 +1129,7 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                 <!-- SVG has been changed to the book image as requested. -->
+                                 <!-- SVG wurde auf das gewünschte Buch-Bild geändert. -->
                                 <img src="sim/Buch.png" alt="Libro" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=📖'; this.alt='Libro';">
                             </div>
                             <h3>Universitätskurs Modern Management - Projektmanagement <span class="arrow"></span></h3>
@@ -1019,7 +1141,7 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                 <!-- SVG has been changed to the book image as requested. -->
+                                 <!-- SVG wurde auf das gewünschte Buch-Bild geändert. -->
                                 <img src="sim/Buch.png" alt="Libro" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=📖'; this.alt='Libro';">
                             </div>
                             <h3>Lean-Manufacturing-Kurs <span class="arrow"></span></h3>
@@ -1031,7 +1153,7 @@
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-icon">
-                                 <!-- SVG has been changed to the book image as requested. -->
+                                 <!-- SVG wurde auf das gewünschte Buch-Bild geändert. -->
                                 <img src="sim/Buch.png" alt="Libro" class="timeline-icon-img" onerror="this.onerror=null; this.src='https://placehold.co/30x30/0056b3/ffffff?text=📖'; this.alt='Libro';">
                             </div>
                             <h3>Oracle Data Base Administrator Diplom <span class="arrow"></span></h3>
@@ -1047,6 +1169,18 @@
             <section id="projects">
                 <h2>Proyectos Destacados</h2>
                 <div class="section-content-reveal reveal-on-scroll">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Optimización de Procesos de Solidificación</h3>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="project-content">
+                            <p><strong>Empresa:</strong> PRIMETALS TECHNOLOGIES AUSTRIA GmbH</p>
+                            <p><strong>Descripción:</strong> Me enfoqué en la mejora y optimización de los procesos de solidificación de metales, un componente crítico en la producción industrial.</p>
+                            <p><strong>Tecnologías Utilizadas:</strong> Este proyecto implicó la manipulación y mejora de sistemas de control existentes, predominantemente basados en sistemas Siemens y su entorno de programación TIA Portal.</p>
+                            <p><strong>Contribuciones y Logros:</strong> Mi trabajo se centró en el desarrollo de bloques de programación específicos. Estos bloques fueron diseñados para mejorar la eficiencia general y el control preciso de los procesos de producción, llevando a beneficios como la reducción de tiempos de ciclo y mejora de la calidad del producto final mediante un control más fino.</p>
+                        </div>
+                    </div>
                     <div class="project-card">
                         <div class="project-header">
                             <h3>Sistema de Riego Automatizado</h3>
@@ -1069,14 +1203,30 @@
                     </div>
                     <div class="project-card">
                         <div class="project-header">
-                            <h3>Optimización de Procesos de Solidificación</h3>
+                            <h3>Voluntariado Comprometido</h3>
                             <span class="arrow"></span>
                         </div>
                         <div class="project-content">
-                            <p><strong>Empresa:</strong> PRIMETALS TECHNOLOGIES AUSTRIA GmbH</p>
-                            <p><strong>Descripción:</strong> Me enfoqué en la mejora y optimización de los procesos de solidificación de metales, un componente crítico en la producción industrial.</p>
-                            <p><strong>Tecnologías Utilizadas:</strong> Este proyecto implicó la manipulación y mejora de sistemas de control existentes, predominantemente basados en sistemas Siemens y su entorno de programación TIA Portal.</p>
-                            <p><strong>Contribuciones y Logros:</strong> Mi trabajo se centró en el desarrollo de bloques de programación específicos. Estos bloques fueron diseñados para mejorar la eficiencia general y el control preciso de los procesos de producción, llevando a beneficios como la reducción de tiempos de ciclo y mejora de la calidad del producto final mediante un control más fino.</p>
+                            <p><strong>Organización:</strong> Tiergarten Schönbrunn, Viena, Austria</p>
+                            <p><strong>Periodo:</strong> Desde 2016</p>
+                            <p>
+                                Colaborador voluntario de forma continua en el zoológico de Schönbrunn, demostrando un fuerte compromiso con el bienestar animal y la conservación. Esta actividad refleja dedicación, responsabilidad y pasión por la naturaleza.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Consultor de Logística y TI</h3>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="project-content">
+                            <p><strong>Organización:</strong> SERVICIO GEOLÓGICO COLOMBIANO, Bogotá, Colombia</p>
+                            <p><strong>Periodo:</strong> 2012 - 2013</p>
+                            <ul>
+                                <li>Desarrollo e implementación de sistemas de control de rutas para optimizar la eficiencia de los conductores.</li>
+                                <li>Gestión del mantenimiento preventivo y correctivo de una flota de 45 vehículos (PKWs y Pickups).</li>
+                                <li>Elaboración y control de presupuestos para el departamento de logística y transporte.</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="project-card">
@@ -1109,34 +1259,6 @@
                                 <li>Administración de bases de datos para clientes.</li>
                                 <li>Participación activa en la venta de sistemas y servicios de TI, identificando necesidades de clientes y proponiendo soluciones.</li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-header">
-                            <h3>Consultor de Logística y TI</h3>
-                            <span class="arrow"></span>
-                        </div>
-                        <div class="project-content">
-                            <p><strong>Organización:</strong> SERVICIO GEOLÓGICO COLOMBIANO, Bogotá, Colombia</p>
-                            <p><strong>Periodo:</strong> 2012 - 2013</p>
-                            <ul>
-                                <li>Desarrollo e implementación de sistemas de control de rutas para optimizar la eficiencia de los conductores.</li>
-                                <li>Gestión del mantenimiento preventivo y correctivo de una flota de 45 vehículos (PKWs y Pickups).</li>
-                                <li>Elaboración y control de presupuestos para el departamento de logística y transporte.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-header">
-                            <h3>Voluntariado Comprometido</h3>
-                            <span class="arrow"></span>
-                        </div>
-                        <div class="project-content">
-                            <p><strong>Organización:</strong> Tiergarten Schönbrunn, Viena, Austria</p>
-                            <p><strong>Periodo:</strong> Desde 2016</p>
-                            <p>
-                                Colaborador voluntario de forma continua en el zoológico de Schönbrunn, demostrando un fuerte compromiso con el bienestar animal y la conservación. Esta actividad refleja dedicación, responsabilidad y pasión por la naturaleza.
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -1279,6 +1401,10 @@
         const menuToggleBtn = document.getElementById('menu-toggle-btn');
         const stickyNav = document.querySelector('.sticky-nav');
         menuToggleBtn.addEventListener('click', () => {
+            // Close language menu if open when main menu is opened
+            if (languageDropdownMenu.classList.contains('open')) {
+                languageDropdownMenu.classList.remove('open');
+            }
             menuToggleBtn.classList.toggle('open');
             stickyNav.classList.toggle('open');
             menuToggleBtn.setAttribute('aria-expanded', menuToggleBtn.classList.contains('open'));
@@ -1342,6 +1468,78 @@
                 documentModal.classList.add('open'); // Open the modal
             });
         });
+
+        // Language Switcher Logic
+        const languageToggleBtn = document.getElementById('language-toggle-btn');
+        const languageDropdownMenu = document.querySelector('.language-dropdown-menu');
+        const currentFlagSpan = document.getElementById('current-flag');
+        const languageOptionsList = document.getElementById('language-options-list');
+
+        const languages = [
+            { code: 'es', flag: '🇪🇸', name: 'Español' },
+            { code: 'en', flag: '🇺🇸', name: 'English' },
+            { code: 'de', flag: '🇦🇹', name: 'Deutsch' }
+        ];
+
+        let currentLangCode = document.documentElement.lang; // Initialize with current HTML lang
+
+        function renderLanguageOptions() {
+            languageOptionsList.innerHTML = ''; // Clear existing list
+            languages.forEach(lang => {
+                if (lang.code !== currentLangCode) { // Only add if not the currently selected language
+                    const listItem = document.createElement('li');
+                    listItem.dataset.lang = lang.code;
+                    listItem.dataset.flag = lang.flag;
+                    listItem.textContent = `${lang.flag} ${lang.name}`;
+                    languageOptionsList.appendChild(listItem);
+
+                    listItem.addEventListener('click', () => {
+                        currentLangCode = lang.code;
+                        document.documentElement.lang = currentLangCode; // Update global HTML lang
+                        updateFlagDisplay();
+                        languageDropdownMenu.classList.remove('open'); // Close dropdown after selection
+                        renderLanguageOptions(); // Re-render the list to remove the newly selected language
+                        // In a real application, you'd trigger content translation here.
+                    });
+                }
+            });
+        }
+
+        function updateFlagDisplay() {
+            const selectedLang = languages.find(lang => lang.code === currentLangCode);
+            if (selectedLang) {
+                currentFlagSpan.textContent = selectedLang.flag;
+                languageToggleBtn.setAttribute('aria-label', `Idioma actual: ${selectedLang.name}`);
+            }
+        }
+
+        languageToggleBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent document click from closing immediately
+            // Close main menu if open when language menu is opened
+            if (stickyNav.classList.contains('open')) {
+                stickyNav.classList.remove('open');
+                menuToggleBtn.classList.remove('open'); // Also reset hamburger icon
+            }
+            languageDropdownMenu.classList.toggle('open');
+            if (languageDropdownMenu.classList.contains('open')) {
+                renderLanguageOptions(); // Render the list when opening
+            }
+        });
+
+        // Close dropdowns if clicked outside
+        document.addEventListener('click', (event) => {
+            if (!menuToggleBtn.contains(event.target) && !stickyNav.contains(event.target)) {
+                stickyNav.classList.remove('open');
+                menuToggleBtn.classList.remove('open');
+            }
+            if (!languageToggleBtn.contains(event.target) && !languageDropdownMenu.contains(event.target)) {
+                languageDropdownMenu.classList.remove('open');
+            }
+        });
+
+        // Set initial flag and render options on page load
+        updateFlagDisplay();
+        renderLanguageOptions();
     </script>
 </body>
 </html>
