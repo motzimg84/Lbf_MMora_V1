@@ -719,6 +719,8 @@
             footer { padding: 15pt !important; }
             footer h2 { font-size: 14pt !important; }
         }
+
+       
     </style>
 </head>
 <body>
@@ -1476,9 +1478,9 @@
         const languageOptionsList = document.getElementById('language-options-list');
 
         const languages = [
-            { code: 'es', flag: '🇪🇸', name: 'Español' },
-            { code: 'en', flag: '🇺🇸', name: 'English' },
-            { code: 'de', flag: '🇦🇹', name: 'Deutsch' }
+             { code: 'es', flag: '🇪🇸', name: 'Español', url: 'https://motzimg84.github.io/CV_MMora_ES/' },
+            { code: 'de', flag: '🇩🇪', name: 'Deutsch', url: 'https://motzimg84.github.io/CV_MMora_DE/' },
+            { code: 'en', flag: '🇬🇧', name: 'English', url: 'https://motzimg84.github.io/CV_MMora_EN/' }
         ];
 
         let currentLangCode = document.documentElement.lang; // Initialize with current HTML lang
@@ -1540,6 +1542,50 @@
         // Set initial flag and render options on page load
         updateFlagDisplay();
         renderLanguageOptions();
+
+        // Funktion zum Umschalten der Sichtbarkeit des Dropdowns
+        languageToggleBtn.addEventListener('click', () => {
+            languageDropdownMenu.classList.toggle('active'); // Fügt/Entfernt die Klasse 'active'
+        });
+
+        // Funktion zum Schließen des Dropdowns, wenn außerhalb geklickt wird
+        document.addEventListener('click', (event) => {
+            if (!languageToggleBtn.contains(event.target) && !languageDropdownMenu.contains(event.target)) {
+                languageDropdownMenu.classList.remove('active');
+            }
+        });
+
+        // Funktion zum Generieren der Sprachoptionen im Dropdown
+        function populateLanguageOptions() {
+            languages.forEach(lang => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('language-option');
+                listItem.dataset.lang = lang.code; // Speichert den Sprachcode im data-Attribut
+
+                // Erstellt den Inhalt des Listeneintrags (Flagge und Name)
+                listItem.innerHTML = `<span>${lang.flag}</span> ${lang.name}`;
+
+                // Fügt einen Klick-Event-Listener für jede Sprachoption hinzu
+                listItem.addEventListener('click', () => {
+                    // Aktualisiert die aktuelle Flagge
+                    currentFlagSpan.textContent = lang.flag;
+                    // Leitet den Benutzer zur entsprechenden URL weiter
+                    window.location.href = lang.url;
+                    // Schließt das Dropdown nach der Auswahl
+                    languageDropdownMenu.classList.remove('active');
+                });
+                languageOptionsList.appendChild(listItem);
+            });
+        }
+
+        // Initialisiert die Sprachoptionen, sobald das DOM geladen ist
+        document.addEventListener('DOMContentLoaded', populateLanguageOptions);
+
+        // Setze die Standardflagge beim Laden der Seite (optional, basierend auf der aktuellen URL oder einem Cookie)
+        // Hier wird die Standardflagge auf Spanisch gesetzt, da es die erste Option in 'languages' ist.
+        // Du könntest dies auch dynamisch machen, z.B. indem du die URL überprüfst.
+        currentFlagSpan.textContent = languages[0].flag; 
+
     </script>
 </body>
 </html>
